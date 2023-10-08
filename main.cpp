@@ -73,6 +73,7 @@ int print_menu(){
     bool failed = false;
     std::string option;
     while (1){
+        system("clear");
         cout << Y_SEPARATION << X_SEPARATION << "1 ~ Agregar elementos"      << endl;
         cout << X_SEPARATION                 << "2 ~ Modificar elementos"    << endl;
         cout << X_SEPARATION                 << "3 ~ Buscar elementos"       << endl;
@@ -87,8 +88,9 @@ int print_menu(){
         } else{
             int numbered_option = numbered(option);
             if (!option_is_valid(numbered_option, 4, 1))
-                failed = true
-            break;
+                failed = true;
+            else
+                break;
         }
     };
     return 1;
