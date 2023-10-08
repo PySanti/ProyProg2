@@ -40,7 +40,7 @@ int length(std::string string){
     while (((int) string[i]) != 0){
         i++;
     }
-    return i + 1;
+    return i;
 }
 
 
@@ -69,8 +69,6 @@ int print_menu(){
 int main(int argc, char **argv){
     int selected_option;
     print_header();
-    while (1){
-        selected_option = print_menu();
-    }
+    selected_option = print_menu();
     return 0;
 }
