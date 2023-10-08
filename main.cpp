@@ -43,6 +43,10 @@ int length(std::string string){
     return i;
 }
 
+int option_is_valid(int option, int max_option_possible, int min_option_possible){
+    return (option >= min_option_possible) && (option <= max_option_possible);
+}
+
 
 int print_menu(){
     bool failed = false;
@@ -57,7 +61,7 @@ int print_menu(){
         else
             cout << Y_SEPARATION << X_SEPARATION << "-> Ingresa una opcion : ";
         cin  >> option;
-        if ((length(option) > 5) || !(string_is_num(option)))
+        if ((length(option) > 1) || !(string_is_num(option)))
             failed = true;
         else
             break;
