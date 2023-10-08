@@ -10,6 +10,56 @@ using namespace std;
 #define MENU_OPTION_MAX_SIZE 20
 #define BAD_INPUT_MSG "Error, la opcion ingresada no es valida ... \n"
 
+typedef struct Node{
+    int element;
+    struct Node *next;
+} Node;
+
+typedef struct List {
+    Node *head;
+} List;
+
+
+List *create_list(){
+    List *new_list = new List;
+    new_list->head = nullptr;
+    return new_list;
+}
+
+Node *create_node(int element){
+    Node *new_node = new Node;
+    new_node->element = element;
+    new_node->next = nullptr;
+    return new_node;
+}
+
+/**
+ * Imprimira los elementos de la lista
+ */
+void print_list(List *main_list){
+    Node *current_node = main_list->head;
+    while (current_node != nullptr){
+        cout << current_node->element << "," << endl;
+        current_node = current_node->next;
+    }
+}
+
+/**
+ * Agrega un elemento a la lista
+ */
+void append_element(List *main_list, int element){
+    Node *current_node = main_list->head;
+    Node *last_node = nullptr;
+    while (current_node != nullptr){
+        last_node = current_node;
+        current_node = current_node->next;
+    }
+    current_node = create_node(element);
+    if (last_node != nullptr){
+        last_node->next = current_node;
+    }
+}
+
 /**
  * retornara true si el valor ascii_num es un numero segun ascii
  * false en caso contrario
@@ -111,8 +161,15 @@ int print_menu(){
 
 
 int main(int argc, char **argv){
-    int selected_option;
-    print_header();
-    selected_option = print_menu();
+    // int selected_option;
+    // print_header();
+    // selected_option = print_menu();
+
+
+    List *MAIN_LIST = create_list();
+    for (int i = 0; i < 10 ; i ++){
+        append_element(MAIN_LIST, i);
+    }
+    print_list(MAIN_LIST);
     return 0;
 }
