@@ -10,21 +10,48 @@ using namespace std;
 #define MENU_OPTION_MAX_SIZE 20
 #define BAD_INPUT_MSG "Error, la opcion ingresada no es valida ... \n"
 
+bool char_is_num(int ascci_num){
+    return (57 >= ascci_num) && (ascci_num >= 48);
+}
+
 bool string_is_num(std::string string){
     // comprueba si la cadena string es completamente un numero
     // retornara false si consigue un caracter que no sea un numero
 
     for (int i = 0; ((int) string[i]) != 0; i++){
-        if (!((57 >= ((int) string[i])) &&  (((int) string[i]) >= 48))){
+        if (!(char_is_num((int) string[i]))){
             return false;
         }
     }
     return true;
 }
 
+
+int length(std::string string){
+    int i = 0;
+    while (((int) string[i]) != 0){
+        i++;
+    }
+    return i;
+}
+
 int numbered(std::string string){
     // convierte una cadena numerica en un numero
-    return 0;
+    // retornara -1 si hubo algun error
+
+    int string_length = length(string);
+    int num = 0, current_exp = 1;
+    if (string_length > 9)
+        return -1;
+    for (int i = string_length-1; i != -1; i--){
+        if (char_is_num((int) string[i])){
+            num += (((int) string[i]) - 48)*current_exp;
+            current_exp *=10;
+        } else {
+            return -1;
+        }
+    }
+    return num;
 }
 
 void print_header(){
@@ -35,13 +62,7 @@ void print_header(){
     getchar();
 }
 
-int length(std::string string){
-    int i = 0;
-    while (((int) string[i]) != 0){
-        i++;
-    }
-    return i;
-}
+
 
 int option_is_valid(int option, int max_option_possible, int min_option_possible){
     return (option >= min_option_possible) && (option <= max_option_possible);
@@ -61,10 +82,14 @@ int print_menu(){
         else
             cout << Y_SEPARATION << X_SEPARATION << "-> Ingresa una opcion : ";
         cin  >> option;
-        if ((length(option) > 1) || !(string_is_num(option)))
+        if ((length(option) > 5) || !(string_is_num(option))){
             failed = true;
-        else
+        } else{
+            int numbered_option = numbered(option);
+            if (!option_is_valid(numbered_option, 4, 1))
+                failed = true
             break;
+        }
     };
     return 1;
 }
