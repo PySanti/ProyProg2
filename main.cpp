@@ -10,17 +10,21 @@ using namespace std;
 #define MENU_OPTION_MAX_SIZE 20
 #define BAD_INPUT_MSG "Error, la opcion ingresada no es valida ... \n"
 
-bool is_num(int ascii_char){
-    return (57 >= ascii_char) &&  (ascii_char >= 48);
-}
+bool string_is_num(std::string string){
+    // comprueba si la cadena string es completamente un numero
+    // retornara false si consigue un caracter que no sea un numero
 
-bool option_is_valid(std::string option){
-    for (int i = 0; ((int) option[i]) != 0; i++){
-        if (!is_num((int) option[i])){
+    for (int i = 0; ((int) string[i]) != 0; i++){
+        if (!((57 >= ((int) string[i])) &&  (((int) string[i]) >= 48))){
             return false;
         }
     }
     return true;
+}
+
+int numbered(std::string string){
+    // convierte una cadena numerica en un numero
+    return 0;
 }
 
 void print_header(){
@@ -31,12 +35,19 @@ void print_header(){
     getchar();
 }
 
+int length(std::string string){
+    int i = 0;
+    while (((int) string[i]) != 0){
+        i++;
+    }
+    return i + 1;
+}
+
 
 int print_menu(){
-    std::string option;
     bool failed = false;
+    std::string option;
     while (1){
-        system("clear");
         cout << Y_SEPARATION << X_SEPARATION << "1 ~ Agregar elementos"      << endl;
         cout << X_SEPARATION                 << "2 ~ Modificar elementos"    << endl;
         cout << X_SEPARATION                 << "3 ~ Buscar elementos"       << endl;
@@ -46,7 +57,7 @@ int print_menu(){
         else
             cout << Y_SEPARATION << X_SEPARATION << "-> Ingresa una opcion : ";
         cin  >> option;
-        if (!option_is_valid(option))
+        if ((length(option) > 5) || !(string_is_num(option)))
             failed = true;
         else
             break;
