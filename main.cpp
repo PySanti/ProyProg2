@@ -10,14 +10,21 @@ using namespace std;
 #define MENU_OPTION_MAX_SIZE 20
 #define BAD_INPUT_MSG "Error, la opcion ingresada no es valida ... \n"
 
+/**
+ * retornara true si el valor ascii_num es un numero segun ascii
+ * false en caso contrario
+ */
 bool char_is_num(int ascci_num){
     return (57 >= ascci_num) && (ascci_num >= 48);
 }
 
-bool string_is_num(std::string string){
-    // comprueba si la cadena string es completamente un numero
-    // retornara false si consigue un caracter que no sea un numero
 
+/*
+ *  comprueba si la cadena string es completamente un numero
+ *  retornara false si consigue un caracter que no sea un numero
+ *  true en caso contrario
+ * */
+bool string_is_num(std::string string){
     for (int i = 0; ((int) string[i]) != 0; i++){
         if (!(char_is_num((int) string[i]))){
             return false;
@@ -26,7 +33,9 @@ bool string_is_num(std::string string){
     return true;
 }
 
-
+/**
+ *  Determinara la longitud de la cadena string
+ */
 int length(std::string string){
     int i = 0;
     while (((int) string[i]) != 0){
@@ -35,10 +44,12 @@ int length(std::string string){
     return i;
 }
 
+/**
+ *  convierte una cadena numerica en un numero
+ *  retornara -1 si hubo algun error
+ *  el numero en concreto en caso contrario
+ */
 int numbered(std::string string){
-    // convierte una cadena numerica en un numero
-    // retornara -1 si hubo algun error
-
     int string_length = length(string);
     int num = 0, current_exp = 1;
     if (string_length > 9)
@@ -63,7 +74,9 @@ void print_header(){
 }
 
 
-
+/*
+ *  Retornara true en caso de que el option se encuentre en el rango de max y min
+ */
 int option_is_valid(int option, int max_option_possible, int min_option_possible){
     return (option >= min_option_possible) && (option <= max_option_possible);
 }
