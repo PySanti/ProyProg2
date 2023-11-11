@@ -54,6 +54,12 @@ int check_entered_menu_option(string entered_option,int max_option,int min_optio
         return option_is_valid(numbered_option, max_option, min_option) ? numbered_option : -1 ;
     }
 }
+/**
+ * Funcion creada para modularizar la impresion del menu_title en el print_menu
+*/
+void print_menu_title(string menu_title){
+    cout << "\n\n\n" << X_SEPARATION << menu_title;
+}
 
 /**
  * Recibira un arreglo de strings que representaran las opciones
@@ -62,12 +68,13 @@ int check_entered_menu_option(string entered_option,int max_option,int min_optio
  * Imprimira el menu hasta que el usuario ingrese una opcion valida.
  * Posteriormente, retornara la opcion ingresada
 */
-int print_menu(string options_list[], int max_option, int min_option){
+int print_menu(string options_list[], int max_option, int min_option, string menu_title){
     bool failed = false;
     int checked_option;
     string option;
     while (1){
         system("clear");
+        print_menu_title(menu_title);
         print_menu_options(options_list, max_option);
         option = print_menu_input(failed);
         checked_option = check_entered_menu_option(option, max_option, min_option);
