@@ -32,3 +32,13 @@ typedef struct Seller {
     string entry_date;
     float comission;
 } Seller;
+
+typedef struct Invoice {
+    int id;
+    Client client_data;
+    Seller seller_data;
+    Article renglones[10];
+    float sub_total;
+    float discount;
+    float total;
+} Invoice;
