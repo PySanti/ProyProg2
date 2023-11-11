@@ -53,8 +53,12 @@ void append_element(List *main_list, int element){
 
 
 int main(int argc, char **argv){
-    int selected_option;
-    print_header();
-    selected_option = print_menu();
+    string options[] = {
+        "Hola",
+        "Como estas",
+        "todo bien?"
+    };
+    int selected_option = print_menu(options, 3, 1);
+    cout << selected_option << endl;
     return 0;
 }

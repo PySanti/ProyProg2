@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./macros.h"
+
 using namespace std;
 /**
  * retornara true si el valor ascii_num es un numero segun ascii
@@ -9,7 +10,6 @@ bool char_is_num(char c){
     int ascci_num = (int) c;
     return (57 >= ascci_num) && (ascci_num >= 48);
 }
-
 
 /*
  *  comprueba si la cadena string es completamente un numero
@@ -28,7 +28,7 @@ bool string_is_num(std::string string){
 /**
  *  Determinara la longitud de la cadena string
  */
-int length(std::string string){
+int string_length(std::string string){
     int i = 0;
     while (((int) string[i]) != 0){
         i++;
@@ -54,29 +54,39 @@ int option_is_valid(int option, int max_option_possible, int min_option_possible
 
 
 
-int print_menu(){
+/**
+ * Recibira un arreglo de strings que representaran las opciones
+ * del menu.
+ * 
+ * Imprimira el menu hasta que el usuario ingrese una opcion valida.
+ * Posteriormente, retornara la opcion ingresada
+*/
+int print_menu(string options_list[], int max_option, int min_option){
     bool failed = false;
-    std::string option;
+    string option;
     while (1){
         system("clear");
-        cout << Y_SEPARATION << X_SEPARATION << "1 ~ Agregar elementos"      << endl;
-        cout << X_SEPARATION                 << "2 ~ Modificar elementos"    << endl;
-        cout << X_SEPARATION                 << "3 ~ Buscar elementos"       << endl;
-        cout << X_SEPARATION                 << "4 ~ Eliminar elementos"     << endl;
+        for (int i = 0 ; i < max_option; i++){
+            if ( i == 0){
+                cout << Y_SEPARATION << X_SEPARATION;
+            } else {
+                cout << X_SEPARATION;
+            }
+            cout << i+1 << " ~ " << options_list[i] << endl;
+        }
+        cout << Y_SEPARATION << X_SEPARATION;
         if (failed)
-            cout << Y_SEPARATION << X_SEPARATION << BAD_INPUT_MSG << X_SEPARATION << "-> Ingresa una opcion : ";
-        else
-            cout << Y_SEPARATION << X_SEPARATION << "-> Ingresa una opcion : ";
+            cout << BAD_INPUT_MSG << X_SEPARATION;
+        cout << "-> Ingresa una opción : ";
         cin  >> option;
-        if ((length(option) > 5) || !(string_is_num(option))){
+        if ((string_length(option) > 5) || !(string_is_num(option))){
             failed = true;
         } else{
             int numbered_option = stoi(option);
-            if (!option_is_valid(numbered_option, 4, 1))
+            if (!option_is_valid(numbered_option, max_option, min_option))
                 failed = true;
             else
-                break;
+                return numbered_option;
         }
     };
-    return 1;
 }

@@ -12,6 +12,7 @@ typedef struct List {
 } List;
 
 typedef struct Article {
+    int primary_key;
     string code;
     string name;
     float price;
