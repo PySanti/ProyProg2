@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./macros.h"
+#include <cctype>
 
 using namespace std;
 /**
@@ -52,3 +53,10 @@ int option_is_valid(int option, int max_option_possible, int min_option_possible
     return (option >= min_option_possible) && (option <= max_option_possible);
 }
 
+
+string uppercase(string target){
+    for (int i = 0; i < string_length(target); i++){
+        target[i] = toupper(target[i]);
+    }
+    return target;
+}

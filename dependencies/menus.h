@@ -1,7 +1,6 @@
 #include <iostream>
 #include "./macros.h"
 #include "./utils.h"
-
 /**
  * Aca almacenaremos todo el codigo para manejo de menus
 */
@@ -58,7 +57,7 @@ int check_entered_menu_option(string entered_option,int max_option,int min_optio
  * Funcion creada para modularizar la impresion del menu_title en el print_menu
 */
 void print_menu_title(string menu_title){
-    cout << "\n\n\n" << X_SEPARATION << menu_title;
+    cout << "\n\n\n" << X_SEPARATION << " ~~ " << uppercase(menu_title) << " ~~ ";
 }
 
 /**
