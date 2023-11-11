@@ -68,9 +68,9 @@ void print_menu_title(string menu_title){
  * Imprimira el menu hasta que el usuario ingrese una opcion valida.
  * Posteriormente, retornara la opcion ingresada
 */
-int print_menu(string options_list[], string menu_title){
+int print_menu(string options_list[], int options_count, string menu_title){
     int min_option = 1;
-    int max_option = options_list->length();
+    int max_option = options_count;
     bool failed = false;
     int checked_option;
     string option;
