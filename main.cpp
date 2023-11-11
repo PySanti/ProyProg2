@@ -2,17 +2,10 @@
 #include <cstdlib>
 #include "./dependencies/macros.h"
 #include "./dependencies/utils.h"
+#include "./dependencies/structs.h"
 
 using namespace std;
 
-typedef struct Node{
-    int element;
-    struct Node *next;
-} Node;
-
-typedef struct List {
-    Node *head;
-} List;
 
 
 List *create_list(){
