@@ -62,7 +62,7 @@ int main(int argc, char **argv){
         "Bonos",
         "Facturas"
     };
-    int selected_option = print_menu(options, 8, 1);
+    int selected_option = print_menu(options, 8, 1, "Menu Inicial");
     switch (selected_option)
     {
         case 1:
@@ -72,7 +72,7 @@ int main(int argc, char **argv){
                 "Eliminar articulo",
                 "Buscar articulo"
             };
-            selected_option = print_menu(article_options, 4, 1);
+            selected_option = print_menu(article_options, 4, 1, "Menu de Artículos");
             break;
         case 2:
             string stock_options[] = {
@@ -81,7 +81,7 @@ int main(int argc, char **argv){
                 "Eliminar inventario",
                 "Buscar inventario"
             };
-            selected_option = print_menu(stock_options, 4, 1);
+            selected_option = print_menu(stock_options, 4, 1, "Menu de Inventario");
             break;
         case 3:
             string client_options[] = {
@@ -90,7 +90,7 @@ int main(int argc, char **argv){
                 "Eliminar cliente",
                 "Buscar cliente"
             };
-            selected_option = print_menu(client_options, 4, 1);
+            selected_option = print_menu(client_options, 4, 1, "Menu de Clientes");
             break;
         case 4:
             string discount_options[] = {
@@ -98,7 +98,7 @@ int main(int argc, char **argv){
                 "-",
                 "-",
             };
-            selected_option = print_menu(discount_options, 3, 1);
+            selected_option = print_menu(discount_options, 3, 1, "Menu de Descuentos");
             break;
         case 5:
             string seller_options[] = {
@@ -107,19 +107,19 @@ int main(int argc, char **argv){
                 "Eliminar vendedor",
                 "Buscar vendedor"
             };
-            selected_option = print_menu(seller_options, 4, 1);
+            selected_option = print_menu(seller_options, 4, 1, "Menu de Vendedores");
             break;
         case 6:
             string comission_options[] = {
                 "-",
             };
-            selected_option = print_menu(comission_options, 1, 1);
+            selected_option = print_menu(comission_options, 1, 1, "Menu de comisiones");
             break;
         case 7:
             string bones_options[] = {
                 "-",
             };
-            selected_option = print_menu(bones_options, 1, 1);
+            selected_option = print_menu(bones_options, 1, 1, "Menu de Bonos");
             break;
     } (selected_option);
     return 0;
