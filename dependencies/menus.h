@@ -46,7 +46,7 @@ string print_menu_input(bool option_failed){
  * Retornara la opcion ingresada en forma de entero en caso de que la opcion sea valida
 */
 int check_entered_menu_option(string entered_option,int max_option,int min_option){
-    if ((get_string_length(entered_option) > 5) || !(string_is_num(entered_option))){
+    if ((entered_option.length() > 5) || !(string_is_num(entered_option))){
         return -1;
     } else{
         int numbered_option = stoi(entered_option);
@@ -68,7 +68,9 @@ void print_menu_title(string menu_title){
  * Imprimira el menu hasta que el usuario ingrese una opcion valida.
  * Posteriormente, retornara la opcion ingresada
 */
-int print_menu(string options_list[], int max_option, int min_option, string menu_title){
+int print_menu(string options_list[], string menu_title){
+    int min_option = 1;
+    int max_option = options_list->length();
     bool failed = false;
     int checked_option;
     string option;

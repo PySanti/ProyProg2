@@ -12,18 +12,6 @@ size_t get_length(T(&)[N]) {
 
 
 /**
- *  Determinara la longitud de la cadena string
- */
-int get_string_length(std::string string){
-    int i = 0;
-    while (((int) string[i]) != 0){
-        i++;
-    }
-    return i;
-}
-
-
-/**
  * retornara true si el valor ascii_num es un numero segun ascii
  * false en caso contrario
  */
@@ -65,7 +53,7 @@ int option_is_valid(int option, int max_option_possible, int min_option_possible
 
 
 string uppercase(string target){
-    for (int i = 0; i < get_string_length(target); i++){
+    for (int i = 0; i < target.length(); i++){
         target[i] = toupper(target[i]);
     }
     return target;
