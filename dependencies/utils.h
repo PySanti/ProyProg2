@@ -1,16 +1,6 @@
 #include <iostream>
 #include "./macros.h"
 using namespace std;
-
-int length(std::string string){
-    int i = 0;
-    while (((int) string[i]) != 0){
-        i++;
-    }
-    return i;
-}
-
-
 /**
  * retornara true si el valor ascii_num es un numero segun ascii
  * false en caso contrario
@@ -50,7 +40,7 @@ int length(std::string string){
 void print_header(){
     system("clear");
     cout << Y_SEPARATION << X_SEPARATION << "Santiago De Andrade, 31.065.103"               << endl;
-    cout << X_SEPARATION <<                 "Proyecto de Algoritmos y ascii_char de Datos"  << endl;
+    cout << X_SEPARATION <<                 "Proyecto de Algoritmos y estructuras de Datos"  << endl;
     cout << Y_SEPARATION << X_SEPARATION << "Pulsa enter para comenzar ... ";
     getchar();
 }
