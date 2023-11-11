@@ -46,7 +46,7 @@ string print_menu_input(bool option_failed){
  * Retornara la opcion ingresada en forma de entero en caso de que la opcion sea valida
 */
 int check_entered_menu_option(string entered_option,int max_option,int min_option){
-    if ((string_length(entered_option) > 5) || !(string_is_num(entered_option))){
+    if ((get_string_length(entered_option) > 5) || !(string_is_num(entered_option))){
         return -1;
     } else{
         int numbered_option = stoi(entered_option);
@@ -59,6 +59,7 @@ int check_entered_menu_option(string entered_option,int max_option,int min_optio
 void print_menu_title(string menu_title){
     cout << "\n\n\n" << X_SEPARATION << " ~~ " << uppercase(menu_title) << " ~~ ";
 }
+
 
 /**
  * Recibira un arreglo de strings que representaran las opciones

@@ -3,6 +3,26 @@
 #include <cctype>
 
 using namespace std;
+
+
+template <typename T, size_t N>
+size_t get_length(T(&)[N]) {
+    return N;
+}
+
+
+/**
+ *  Determinara la longitud de la cadena string
+ */
+int get_string_length(std::string string){
+    int i = 0;
+    while (((int) string[i]) != 0){
+        i++;
+    }
+    return i;
+}
+
+
 /**
  * retornara true si el valor ascii_num es un numero segun ascii
  * false en caso contrario
@@ -26,16 +46,6 @@ bool string_is_num(std::string string){
     return true;
 }
 
-/**
- *  Determinara la longitud de la cadena string
- */
-int string_length(std::string string){
-    int i = 0;
-    while (((int) string[i]) != 0){
-        i++;
-    }
-    return i;
-}
 
 
 void print_header(){
@@ -55,7 +65,7 @@ int option_is_valid(int option, int max_option_possible, int min_option_possible
 
 
 string uppercase(string target){
-    for (int i = 0; i < string_length(target); i++){
+    for (int i = 0; i < get_string_length(target); i++){
         target[i] = toupper(target[i]);
     }
     return target;
