@@ -2,15 +2,6 @@
 
 using namespace std;
 
-typedef struct Node{
-    int element;
-    struct Node *next;
-} Node;
-
-typedef struct List {
-    Node *head;
-} List;
-
 typedef struct Article {
     int primary_key;
     string code;
