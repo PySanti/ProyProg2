@@ -58,3 +58,11 @@ string uppercase(string target){
     }
     return target;
 }
+
+
+string to_lower(string target){
+    for (int i = 0; i < target.length(); i++){
+        target[i] = tolower(target[i])
+    }
+    return target;
+}
