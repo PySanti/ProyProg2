@@ -3,6 +3,7 @@
 #include "./dependencies/macros.h"
 #include "./dependencies/structs.h"
 #include "./dependencies/menus.h"
+#include "./dependencies/options_handling.h"
 using namespace std;
 
 string options[] = {
@@ -75,6 +76,8 @@ int main(int argc, char **argv){
         {
             case 1:
                 selected_option = print_menu(article_options, sizeof(article_options) / sizeof(article_options[0]), "Menu de Artículos");
+                handle_article_option(selected_option, article_options);
+                return 0;
                 break;
             case 2:
                 selected_option = print_menu(stock_options, sizeof(stock_options) / sizeof(stock_options[0]), "Menu de Inventario");

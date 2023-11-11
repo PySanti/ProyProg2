@@ -1,6 +1,5 @@
 #include <iostream>
 #include "./macros.h"
-#include <cctype>
 
 using namespace std;
 
@@ -62,7 +61,7 @@ string uppercase(string target){
 
 string to_lower(string target){
     for (int i = 0; i < target.length(); i++){
-        target[i] = tolower(target[i])
+        target[i] = tolower(target[i]);
     }
     return target;
 }
