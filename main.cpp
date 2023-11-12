@@ -68,7 +68,7 @@ string invoice_options[] = {
 };
 
 
-
+ArticlesList *MAIN_ARTICLE_LIST = new ArticlesList;
 
 
 int main(int argc, char **argv){
@@ -79,7 +79,7 @@ int main(int argc, char **argv){
         {
             case 1:
                 selected_option = print_menu(article_options, sizeof(article_options) / sizeof(article_options[0]), "Menu de Artículos");
-                handle_article_option(selected_option, article_options);
+                handle_article_option(selected_option, article_options, MAIN_ARTICLE_LIST);
                 break;
             case 2:
                 selected_option = print_menu(stock_options, sizeof(stock_options) / sizeof(stock_options[0]), "Menu de Inventario");

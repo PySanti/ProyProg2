@@ -6,12 +6,12 @@ bool back_option_selected(string stringed_selected_option){
     return (stringed_selected_option == "volver") ? true : false;
 }
 
-void handle_article_option(int selected_option, string options_list[]){
+void handle_article_option(int selected_option, string options_list[], ArticlesList *MAIN_ARTICLE_LIST){
     string stringed_selected_option = to_lower(options_list[selected_option-1]);
     if (back_option_selected(stringed_selected_option))
         return;
     if (stringed_selected_option.find("agregar") != string::npos){
-        articles_creation_handling();
+        articles_creation_handling(MAIN_ARTICLE_LIST);
     } else if (stringed_selected_option.find("buscar") != string::npos){
         cout << "Buscar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("eliminar") != string::npos){
@@ -19,7 +19,8 @@ void handle_article_option(int selected_option, string options_list[]){
     } else if (stringed_selected_option.find("modificar") != string::npos){
         cout << "Modificar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("ver") != string::npos){
-        cout << "Ver elemento a la lista de articulos" << endl;
+        show_articles_list(MAIN_ARTICLE_LIST);
+        getchar();
     }
     return;
 }
