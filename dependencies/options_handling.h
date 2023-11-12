@@ -18,15 +18,11 @@ void handle_article_option(int selected_option, string options_list[]){
         cout << "Eliminar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("modificar") != string::npos){
         cout << "Modificar elemento a la lista de articulos" << endl;
+    } else if (stringed_selected_option.find("ver") != string::npos){
+        cout << "Ver elemento a la lista de articulos" << endl;
     }
     return;
 }
-
-void handle_stock_option(int selected_option, string options_list[]){
-    return;
-}
-
-
 
 void handle_client_option(int selected_option, string options_list[]){
     string stringed_selected_option = to_lower(options_list[selected_option-1]);
@@ -39,6 +35,8 @@ void handle_client_option(int selected_option, string options_list[]){
     } else if (stringed_selected_option.find("eliminar") != string::npos){
         cout << "Eliminar eliminar cliente" << endl;
     } else if (stringed_selected_option.find("modificar") != string::npos){
+        cout << "Modificar cliente " << endl;
+    }  else if (stringed_selected_option.find("ver") != string::npos){
         cout << "Modificar cliente " << endl;
     }
     return;
@@ -58,9 +56,19 @@ void handle_seller_option(int selected_option, string options_list[]){
         cout << "Eliminar vendedor" << endl;
     } else if (stringed_selected_option.find("modificar") != string::npos){
         cout << "Modificar vendedor " << endl;
+    } else if (stringed_selected_option.find("ver") != string::npos){
+        cout << "Modificar vendedor " << endl;
     }
     return;
 }
+
+
+void handle_stock_option(int selected_option, string options_list[]){
+    return;
+}
+
+
+
 
 
 

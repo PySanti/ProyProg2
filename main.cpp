@@ -18,6 +18,7 @@ string main_options[] = {
     "Salir"
 };
 string article_options[] = {
+    "Ver artículos",
     "Agregar articulo",
     "Modificar articulo",
     "Eliminar articulo",
@@ -25,6 +26,7 @@ string article_options[] = {
     "Volver"
 };
 string stock_options[] = {
+    "Ver inventario",
     "Agregar inventario",
     "Modificar inventario",
     "Eliminar inventario",
@@ -32,6 +34,7 @@ string stock_options[] = {
     "Volver"
 };
 string client_options[] = {
+    "Ver clientes",
     "Agregar cliente",
     "Modificar cliente",
     "Eliminar cliente",
@@ -45,6 +48,7 @@ string discount_options[] = {
     "Volver"
 };
 string seller_options[] = {
+    "Ver vendedores",
     "Agregar vendedor",
     "Modificar vendedor",
     "Eliminar vendedor",
