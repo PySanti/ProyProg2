@@ -16,56 +16,9 @@ string main_options[] = {
     "Facturas",
     "Salir"
 };
-string article_options[] = {
-    "Ver artículos",
-    "Agregar articulo",
-    "Modificar articulo",
-    "Eliminar articulo",
-    "Buscar articulo",
-    "Volver"
-};
-string stock_options[] = {
-    "Ver inventario",
-    "Agregar inventario",
-    "Modificar inventario",
-    "Eliminar inventario",
-    "Buscar inventario",
-    "Volver"
-};
-string client_options[] = {
-    "Ver clientes",
-    "Agregar cliente",
-    "Modificar cliente",
-    "Eliminar cliente",
-    "Buscar cliente",
-    "Volver"
-};
-string discount_options[] = {
-    "-",
-    "-",
-    "-",
-    "Volver"
-};
-string seller_options[] = {
-    "Ver vendedores",
-    "Agregar vendedor",
-    "Modificar vendedor",
-    "Eliminar vendedor",
-    "Buscar vendedor",
-    "Volver"
-};
-string comission_options[] = {
-    "-",
-    "Volver",
-};
-string bones_options[] = {
-    "-",
-    "Volver"
-};
-string invoice_options[] = {
-    "-",
-    "Volver"
-};
+
+
+
 
 
 ArticlesList *MAIN_ARTICLE_LIST = new ArticlesList;
@@ -78,36 +31,28 @@ int main(int argc, char **argv){
         switch (selected_option)
         {
             case 1:
-                selected_option = print_menu(article_options, sizeof(article_options) / sizeof(article_options[0]), "Menu de Artículos");
-                handle_article_option(selected_option, article_options, MAIN_ARTICLE_LIST);
+                handle_articles(MAIN_ARTICLE_LIST);
                 break;
             case 2:
-                selected_option = print_menu(stock_options, sizeof(stock_options) / sizeof(stock_options[0]), "Menu de Inventario");
-                handle_stock_option(selected_option, article_options);
+                handle_stock();
                 break;
             case 3:
-                selected_option = print_menu(client_options,sizeof(client_options) / sizeof(client_options[0]) , "Menu de Clientes");
-                handle_client_option(selected_option, client_options);
+                handle_clients();
                 break;
             case 4:
-                selected_option = print_menu(discount_options,sizeof(discount_options) / sizeof(discount_options[0]), "Menu de Descuentos");
-                handle_discount_option(selected_option, client_options);
+                handle_discounts();
                 break;
             case 5:
-                selected_option = print_menu(seller_options,sizeof(seller_options) / sizeof(seller_options[0]) , "Menu de Vendedores");
-                handle_seller_option(selected_option, client_options);
+                handle_sellers();
                 break;
             case 6:
-                selected_option = print_menu(comission_options, sizeof(comission_options) / sizeof(comission_options[0]), "Menu de comisiones");
-                handle_comission_option(selected_option, client_options);
+                handle_comissions();
                 break;
             case 7:
-                selected_option = print_menu(bones_options, sizeof(bones_options) / sizeof(bones_options[0]), "Menu de Bonos");
-                handle_bones_option(selected_option, client_options);
+                handle_bones();
                 break;
             case 8:
-                selected_option = print_menu(invoice_options, sizeof(invoice_options) / sizeof(invoice_options[0]), "Menu de facturas");
-                handle_invoice_option(selected_option, client_options);
+                handle_invoices();
                 break;
             case 9:
                 exit = true;
