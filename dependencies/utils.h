@@ -70,8 +70,8 @@ string to_lower(string target){
 }
 
 string capitalize(string target){
-    for (int i = 0; i < target.length ; i++){
-        target[i] = (i=0)? toupper(target[i]) : tolower(target[i]);
+    for (int i = 0; i < target.length() ; i++){
+        target[i] = (i == 0)? toupper(target[i]) : tolower(target[i]);
     }
     return target;
 }
@@ -93,14 +93,17 @@ map<string, string> validate_form(map<string, string> patterns_dict){
     regex current_pattern;
     string current_value;
     string error_log;
+    system("clear");
     while (!validation_finished){
         for (const auto& par : patterns_dict) {
             const string& field = par.first;
             const string& pattern = par.second;
+            if (current_field_iterator == 0)
+                cout << Y_SEPARATION << endl;
             if (current_field_iterator == current_field){
                 if (error_log != "")
-                    cout << error_log << endl;
-                cout << field << " : ";
+                    cout << X_SEPARATION << error_log << endl;
+                cout << X_SEPARATION << capitalize(field) << " : ";
                 cin >> current_value;
                 cout << endl;
                 current_pattern = pattern;
@@ -120,7 +123,7 @@ map<string, string> validate_form(map<string, string> patterns_dict){
                     break;
                 }
             } else {
-                cout << field << " : " << pattern << endl;
+                cout << X_SEPARATION << capitalize(field) << " : " << pattern << endl << endl;
                 current_field_iterator ++;
             }
         }
