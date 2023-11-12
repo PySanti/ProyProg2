@@ -17,10 +17,10 @@ Article create_article(string code, int count, string name, float price ){
 void articles_creation_handling(){
     system("clear");
     std::map<std::string, string> pattern_dict;
-    pattern_dict["nombre"] = "-";
-    pattern_dict["código"] = "codigo";
-    pattern_dict["cantidad"] = "hola";
-    pattern_dict["precio"] = "hola";
+    pattern_dict["nombre"] = "_";
+    pattern_dict["código"] = "^[A-Za-z][0-9]+$";
+    pattern_dict["cantidad"] = "^[0-9]+$";
+    pattern_dict["precio"] = "^[+-]?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][+-]?[0-9]+)?$";
     validate_form(pattern_dict);
     // new_article = create_article(code, count, name, price);
 }

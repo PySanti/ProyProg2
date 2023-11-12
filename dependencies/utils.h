@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./macros.h"
 #include <map>
+#include <regex>
 
 
 using namespace std;
@@ -68,11 +69,59 @@ string to_lower(string target){
     return target;
 }
 
+/**
+ * Funcion creada para imprimir y validar formularios.
+ * 
+ * 
+ * Recibira un map con claves como los campos del formulario y
+ * como patron, la expresion regular que deben cumplir.
+ * 
+ * En caso de que el campo no tenga ninguna restricción,
+ * asignar '-' como valor
+*/
 map<string, string> validate_form(map<string, string> patterns_dict){
+    int current_field = 0;
+    int current_field_iterator = 0;
+    bool validation_finished = false;
+    regex current_pattern;
+    string current_value;
+    string error_log;
+    while (!validation_finished){
+        for (const auto& par : patterns_dict) {
+            const string& field = par.first;
+            const string& pattern = par.second;
+            if (current_field_iterator == current_field){
+                if (error_log != "")
+                    cout << error_log << endl;
+                cout << field << " : ";
+                cin >> current_value;
+                cout << endl;
+                current_pattern = pattern;
+                if (pattern == "_" || regex_search(current_value, current_pattern)){
+                    patterns_dict[field] = current_value;
+                    current_field ++;
+                    current_field_iterator++;
+                    error_log = "";
+                    if (current_field == patterns_dict.size()){
+                        validation_finished = true;
+                        break;
+                    }
+                } else {
+                    system("clear");
+                    error_log = "Error, has ingresado un valor para " + field + " invalido !";
+                    current_field_iterator = 0;
+                    break;
+                }
+            } else {
+                cout << field << " : " << pattern << endl;
+                current_field_iterator ++;
+            }
+        }
+    }        
     for (const auto& par : patterns_dict) {
-        const string& clave = par.first;
-        const string& valor = par.second;
-        std::cout << "Clave: " << clave << ", Valor: " << valor << std::endl;
+        const string& field = par.first;
+        const string& pattern = par.second;
+        cout << field << " : " << pattern;
     }
     return patterns_dict;
 }
