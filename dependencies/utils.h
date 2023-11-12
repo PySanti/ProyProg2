@@ -93,8 +93,8 @@ map<string, string> validate_form(map<string, string> patterns_dict){
     regex current_pattern;
     string current_value;
     string error_log;
-    system("clear");
     while (!validation_finished){
+        system("clear");
         for (const auto& par : patterns_dict) {
             const string& field = par.first;
             const string& pattern = par.second;
@@ -110,14 +110,13 @@ map<string, string> validate_form(map<string, string> patterns_dict){
                 if (pattern == "_" || regex_search(current_value, current_pattern)){
                     patterns_dict[field] = current_value;
                     current_field ++;
-                    current_field_iterator++;
+                    current_field_iterator = 0;
                     error_log = "";
                     if (current_field == patterns_dict.size()){
                         validation_finished = true;
-                        break;
                     }
+                    break;
                 } else {
-                    system("clear");
                     error_log = "Error, has ingresado un valor para " + field + " invalido !";
                     current_field_iterator = 0;
                     break;
@@ -128,10 +127,5 @@ map<string, string> validate_form(map<string, string> patterns_dict){
             }
         }
     }        
-    for (const auto& par : patterns_dict) {
-        const string& field = par.first;
-        const string& pattern = par.second;
-        cout << field << " : " << pattern;
-    }
     return patterns_dict;
 }

@@ -15,12 +15,13 @@ Article create_article(string code, int count, string name, float price ){
 
 
 void articles_creation_handling(){
-    system("clear");
-    std::map<std::string, string> pattern_dict;
-    pattern_dict["nombre"] = "_";
-    pattern_dict["código"] = "^[A-Za-z][0-9]+$";
-    pattern_dict["cantidad"] = "^[0-9]+$";
-    pattern_dict["precio"] = "^[+-]?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][+-]?[0-9]+)?$";
-    validate_form(pattern_dict);
-    // new_article = create_article(code, count, name, price);
+    Article new_article;
+    std::map<std::string, string> pattern_dict = {
+        {"nombre", "_"},
+        {"codigo", "^[A-Za-z][0-9]+$"},
+        {"cantidad" , "^[0-9]+$"},
+        {"precio" , "^[+-]?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][+-]?[0-9]+)?$"}
+    };
+    pattern_dict = validate_form(pattern_dict);
+    new_article = create_article(pattern_dict["code"], stoi(pattern_dict["cantidad"]), pattern_dict["nombre"], stof(pattern_dict["precio"]));
 }
