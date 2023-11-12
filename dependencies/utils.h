@@ -69,6 +69,13 @@ string to_lower(string target){
     return target;
 }
 
+string capitalize(string target){
+    for (int i = 0; i < target.length ; i++){
+        target[i] = (i=0)? toupper(target[i]) : tolower(target[i]);
+    }
+    return target;
+}
+
 /**
  * Funcion creada para imprimir y validar formularios.
  * 
