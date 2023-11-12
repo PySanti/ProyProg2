@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include "./dependencies/macros.h"
-#include "./dependencies/structs.h"
 #include "./dependencies/menus.h"
 #include "./dependencies/options_handling.h"
 using namespace std;

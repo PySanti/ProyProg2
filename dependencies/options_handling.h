@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "./articles_handling.h"
 using namespace std;
 
 bool back_option_selected(string stringed_selected_option){
@@ -11,7 +11,7 @@ void handle_article_option(int selected_option, string options_list[]){
     if (back_option_selected(stringed_selected_option))
         return;
     if (stringed_selected_option.find("agregar") != string::npos){
-        cout << "Agregar elemento a la lista de articulos" << endl;
+        articles_creation_handling();
     } else if (stringed_selected_option.find("buscar") != string::npos){
         cout << "Buscar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("eliminar") != string::npos){

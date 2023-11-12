@@ -1,5 +1,7 @@
 #include <iostream>
 #include "./macros.h"
+#include <map>
+
 
 using namespace std;
 
@@ -64,4 +66,13 @@ string to_lower(string target){
         target[i] = tolower(target[i]);
     }
     return target;
+}
+
+map<string, string> validate_form(map<string, string> patterns_dict){
+    for (const auto& par : patterns_dict) {
+        const string& clave = par.first;
+        const string& valor = par.second;
+        std::cout << "Clave: " << clave << ", Valor: " << valor << std::endl;
+    }
+    return patterns_dict;
 }
