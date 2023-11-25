@@ -40,18 +40,11 @@ void show_article(Article article){
 void show_articles_list(ArticlesList *article_list){
     ArticleNode *current_node = article_list->head;
     system("clear");
-    if (article_list->head == NULL){
-        cout << "\n\n\n\n\n\n\t\t\t\t";
-        cout << "No hay articulos en la lista !";
-        return;
+    while (current_node != NULL){
+        show_article(current_node->article);
+        current_node = current_node->next;
     }
-    else{
-        while (current_node != NULL){
-            show_article(current_node->article);
-            current_node = current_node->next;
-        }
-    }
-    
+    pause();
 }
 
 

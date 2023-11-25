@@ -6,6 +6,24 @@ bool back_option_selected(string stringed_selected_option){
     return (stringed_selected_option == "volver") ? true : false;
 }
 
+
+void search_article(){
+    int selected_option;
+    string options[] = {
+        "Nombre",
+        "Id",
+        "Codigo",
+    };
+    print_menu(options, sizeof(options) / sizeof(options[0]), "Selecciona el parametro de busqueda");
+    switch (selected_option)
+    {
+    case 1:
+        break;
+    default:
+        break;
+    }
+}
+
 void handle_articles(){
     string article_options[] = {
         "Ver artículos",
@@ -22,14 +40,21 @@ void handle_articles(){
     if (stringed_selected_option.find("agregar") != string::npos){
         success_screen("El producto " + articles_creation_handling() + " ha sido agregado exitosamente");
     } else if (stringed_selected_option.find("buscar") != string::npos){
-        cout << "Buscar elemento a la lista de articulos" << endl;
+        if (MAIN_ARTICLE_LIST->head == NULL){
+            success_screen("No hay artículos en la lista aun !");
+        } else {
+            search_article();
+        }
     } else if (stringed_selected_option.find("eliminar") != string::npos){
         cout << "Eliminar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("modificar") != string::npos){
         cout << "Modificar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("ver") != string::npos){
-        show_articles_list(MAIN_ARTICLE_LIST);
-        pause();
+        if (MAIN_ARTICLE_LIST->head == NULL){
+            success_screen("No hay artículos en la lista aun !");
+        } else {
+            show_articles_list(MAIN_ARTICLE_LIST);
+        }
     }
     return;
 }
