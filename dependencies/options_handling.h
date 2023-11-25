@@ -8,20 +8,17 @@ bool back_option_selected(string stringed_selected_option){
 
 
 void search_article(){
-    int selected_option;
+    string selected_option;
+    string value;
     string options[] = {
         "Nombre",
         "Id",
-        "Codigo",
+        "Código",
     };
-    print_menu(options, sizeof(options) / sizeof(options[0]), "Selecciona el parametro de busqueda");
-    switch (selected_option)
-    {
-    case 1:
-        break;
-    default:
-        break;
-    }
+    selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "Selecciona el parámetro de búsqueda")-1]);
+    cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
+    cin >> value;
+    search_element_in_list(MAIN_ARTICLE_LIST, selected_option, selected_option);
 }
 
 void handle_articles(){
