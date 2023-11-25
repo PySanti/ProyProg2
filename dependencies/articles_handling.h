@@ -68,22 +68,6 @@ Article create_article(string code, int count, string name, float price ){
     new_article.price = price;
     return new_article;
 }
-
-
-string articles_creation_handling(){
-    Article new_article;
-    std::map<std::string, string> pattern_dict = {
-        {"nombre",      "_"},
-        {"codigo",      CODE_NUMBER_REGEX},
-        {"cantidad" ,   INT_NUMBER_REGEX},
-        {"precio" ,     FLOAT_NUMBER_REGEX}
-    };
-    pattern_dict = validate_form(pattern_dict);
-    new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), uppercase(pattern_dict["nombre"]), stof(pattern_dict["precio"]));
-    append_article_to_article_list(MAIN_ARTICLE_LIST, new_article);
-    return uppercase(pattern_dict["codigo"]);
-}
-
 ArticleNode *search_article_node_by_id(ArticlesList *main_article_list, int id){
     ArticleNode *current_node = main_article_list->head;
     int current_id = main_article_list->articles_count;
@@ -117,6 +101,27 @@ ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, str
     }
     return NULL;
 }
+
+string articles_creation_handling(){
+    Article new_article;
+    std::map<std::string, string> pattern_dict = {
+        {"nombre",      "_"},
+        {"codigo",      CODE_NUMBER_REGEX},
+        {"cantidad" ,   INT_NUMBER_REGEX},
+        {"precio" ,     FLOAT_NUMBER_REGEX}
+    };
+    pattern_dict = validate_form(pattern_dict);
+    if (search_element_in_article_list(MAIN_ARTICLE_LIST, "codigo", to_lower(pattern_dict["codigo"]))){
+        success_screen("Error, ya existe un articulo con el codigo indicado (" + pattern_dict["codigo"] + ")");
+        return "";
+    } else {
+        new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), uppercase(pattern_dict["nombre"]), stof(pattern_dict["precio"]));
+        append_article_to_article_list(MAIN_ARTICLE_LIST, new_article);
+        return uppercase(pattern_dict["codigo"]);
+    }
+}
+
+
 
 
 ArticleNode *search_article(){

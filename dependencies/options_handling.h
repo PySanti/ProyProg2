@@ -23,7 +23,10 @@ void handle_articles(){
     if (back_option_selected(stringed_selected_option))
         return;
     if (stringed_selected_option.find("agregar") != string::npos){
-        success_screen("El producto " + articles_creation_handling() + " ha sido agregado exitosamente");
+        string articles_creation_handling_response = articles_creation_handling();
+        if (articles_creation_handling_response != ""){
+            success_screen("El producto " + articles_creation_handling_response + " ha sido agregado exitosamente");
+        }
     } else if (stringed_selected_option.find("buscar") != string::npos){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("No hay artículos en la lista aun !");
