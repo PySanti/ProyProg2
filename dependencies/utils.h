@@ -103,7 +103,7 @@ map<string, string> validate_form(map<string, string> patterns_dict){
             if (current_field_iterator == current_field){
                 if (error_log != "")
                     cout << X_SEPARATION << error_log << endl;
-                cout << X_SEPARATION << capitalize(field) << " : ";
+                cout << X_SEPARATION << capitalize(field) << " (sin espacios) : ";
                 cin >> current_value;
                 cout << endl;
                 current_pattern = pattern;

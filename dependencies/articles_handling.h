@@ -73,6 +73,6 @@ void articles_creation_handling(){
         {"precio" ,     FLOAT_NUMBER_REGEX}
     };
     pattern_dict = validate_form(pattern_dict);
-    new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), pattern_dict["nombre"], stof(pattern_dict["precio"]));
+    new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), uppercase(pattern_dict["nombre"]), stof(pattern_dict["precio"]));
     append_article_to_article_list(MAIN_ARTICLE_LIST, new_article);
 }
