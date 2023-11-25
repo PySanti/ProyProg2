@@ -138,12 +138,12 @@ void pause(){
 
 void success_screen(string msg){
     system("clear");
-    cout << "\n\n\n\n\n\n\t\t\t\t" << uppercase(msg);
-    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-    cout << "\t\t\t Pulse enter para continuar ... ";
+    cout << Y_SEPARATION << X_SEPARATION << uppercase(msg);
+    cout << Y_SEPARATION;
+    cout << X_SEPARATION << "Pulse enter para continuar ... ";
     pause();
 }
 
 void search_element_in_list(void *main_list, string field, string value){
-    
+
 }
