@@ -34,12 +34,14 @@ void append_article_to_article_list(ArticlesList *article_list, Article article)
 }
 
 void show_article(Article article){
-    cout << article.name << ", " << article.code << ", " << article.count << ", " << article.price << endl;
+    cout << "~~ " << article.code << ": " << article.name << " - " << article.count << " - " << article.price << endl;
 }
 
 void show_articles_list(ArticlesList *article_list){
     ArticleNode *current_node = article_list->head;
+    system("clear");
     if (article_list->head == NULL){
+        cout << "\n\n\n\n\n\n\t\t\t\t";
         cout << "No hay articulos en la lista !";
         return;
     }
