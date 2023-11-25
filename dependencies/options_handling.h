@@ -20,7 +20,7 @@ void handle_articles(){
     if (back_option_selected(stringed_selected_option))
         return;
     if (stringed_selected_option.find("agregar") != string::npos){
-        articles_creation_handling();
+        success_screen("El producto " + articles_creation_handling() + " ha sido agregado exitosamente");
     } else if (stringed_selected_option.find("buscar") != string::npos){
         cout << "Buscar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("eliminar") != string::npos){
@@ -29,7 +29,7 @@ void handle_articles(){
         cout << "Modificar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("ver") != string::npos){
         show_articles_list(MAIN_ARTICLE_LIST);
-        cin >> stringed_selected_option;
+        pause();
     }
     return;
 }

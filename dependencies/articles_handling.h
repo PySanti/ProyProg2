@@ -49,6 +49,7 @@ void show_articles_list(ArticlesList *article_list){
             current_node = current_node->next;
         }
     }
+    
 }
 
 
@@ -64,7 +65,7 @@ Article create_article(string code, int count, string name, float price ){
 }
 
 
-void articles_creation_handling(){
+string articles_creation_handling(){
     Article new_article;
     std::map<std::string, string> pattern_dict = {
         {"nombre",      "_"},
@@ -75,4 +76,5 @@ void articles_creation_handling(){
     pattern_dict = validate_form(pattern_dict);
     new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), uppercase(pattern_dict["nombre"]), stof(pattern_dict["precio"]));
     append_article_to_article_list(MAIN_ARTICLE_LIST, new_article);
+    return uppercase(pattern_dict["codigo"]);
 }
