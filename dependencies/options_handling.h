@@ -7,19 +7,6 @@ bool back_option_selected(string stringed_selected_option){
 }
 
 
-void search_article(){
-    string selected_option;
-    string value;
-    string options[] = {
-        "Nombre",
-        "Id",
-        "Código",
-    };
-    selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "Selecciona el parámetro de búsqueda")-1]);
-    cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
-    cin >> value;
-    search_element_in_list(MAIN_ARTICLE_LIST, selected_option, selected_option);
-}
 
 void handle_articles(){
     string article_options[] = {
@@ -31,6 +18,7 @@ void handle_articles(){
         "Volver"
     };
     int selected_option = print_menu(article_options, sizeof(article_options) / sizeof(article_options[0]), "Menu de Artículos");
+    ArticleNode *found_article = NULL;
     string stringed_selected_option = to_lower(article_options[selected_option-1]);
     if (back_option_selected(stringed_selected_option))
         return;
@@ -40,7 +28,15 @@ void handle_articles(){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("No hay artículos en la lista aun !");
         } else {
-            search_article();
+            found_article = search_article();
+            if (found_article){
+                system("clear");
+                cout << Y_SEPARATION << X_SEPARATION << "Articulo conseguido !!!" << endl;
+                show_article(found_article->article);
+                pause();
+            } else {
+                success_screen("El articulo no ha sido conseguido !!");
+            }
         }
     } else if (stringed_selected_option.find("eliminar") != string::npos){
         cout << "Eliminar elemento a la lista de articulos" << endl;

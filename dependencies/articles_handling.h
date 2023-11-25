@@ -33,8 +33,12 @@ void append_article_to_article_list(ArticlesList *article_list, Article article)
     }
 }
 
+
 void show_article(Article article){
-    cout << "~~ " << article.code << ": " << article.name << " - " << article.count << " - " << article.price << endl;
+    cout << "~~ " << article.code << endl;
+    cout << "\t\tNombre : " << article.name << endl;
+    cout << "\t\tCantidad : " << article.count << endl;
+    cout << "\t\tPrecio : " << article.price << endl;
 }
 
 void show_articles_list(ArticlesList *article_list){
@@ -72,4 +76,32 @@ string articles_creation_handling(){
     new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), uppercase(pattern_dict["nombre"]), stof(pattern_dict["precio"]));
     append_article_to_article_list(MAIN_ARTICLE_LIST, new_article);
     return uppercase(pattern_dict["codigo"]);
+}
+
+ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, string field, string value){
+    ArticleNode *current_node = main_article_list->head;
+    if (field != "id"){
+        while (current_node != NULL){
+            if ((field == "codigo" && to_lower(current_node->article.code) == to_lower(value)) || (field == "nombre" && to_lower(current_node->article.name) == to_lower(value)))
+                return current_node;
+            current_node = current_node->next;
+        }
+        return NULL;
+    }
+    return NULL;
+}
+
+
+ArticleNode *search_article(){
+    string selected_option;
+    string value;
+    string options[] = {
+        "Nombre",
+        "Id",
+        "Codigo",
+    };
+    selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "Selecciona el parámetro de búsqueda")-1]);
+    cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
+    cin >> value;
+    return search_element_in_article_list(MAIN_ARTICLE_LIST, selected_option, value);
 }

@@ -143,7 +143,3 @@ void success_screen(string msg){
     cout << X_SEPARATION << "Pulse enter para continuar ... ";
     pause();
 }
-
-void search_element_in_list(void *main_list, string field, string value){
-
-}
