@@ -35,6 +35,7 @@ void append_article_to_article_list(ArticlesList *article_list, Article article)
         article_list->head = new_article_node;
         article_list->head->next = aux_article_node;
     }
+    article_list->articles_count++;
 }
 
 
@@ -83,6 +84,25 @@ string articles_creation_handling(){
     return uppercase(pattern_dict["codigo"]);
 }
 
+ArticleNode *search_article_node_by_id(ArticlesList *main_article_list, int id){
+    ArticleNode *current_node = main_article_list->head;
+    int current_id = main_article_list->articles_count;
+    cout << id << endl;
+    pause();
+    if (current_node == NULL)
+        return NULL;
+    else {
+        while (current_node != NULL){
+            if (current_id == id){
+                return current_node;
+            }
+            current_id --;
+            current_node = current_node->next;
+        }
+        return NULL;
+    }
+}
+
 ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, string field, string value){
     ArticleNode *current_node = main_article_list->head;
     if (field != "id"){
@@ -92,6 +112,8 @@ ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, str
             current_node = current_node->next;
         }
         return NULL;
+    } else {
+        return search_article_node_by_id(main_article_list, stoi(value));
     }
     return NULL;
 }
