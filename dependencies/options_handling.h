@@ -30,7 +30,7 @@ void handle_articles(){
     } else if (stringed_selected_option.find("buscar") != string::npos){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("No hay artículos en la lista aun !");
-        } else {
+        }  else {
             found_article = search_article();
             if (found_article){
                 system("clear");

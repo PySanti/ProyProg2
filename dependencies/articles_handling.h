@@ -71,8 +71,6 @@ Article create_article(string code, int count, string name, float price ){
 ArticleNode *search_article_node_by_id(ArticlesList *main_article_list, int id){
     ArticleNode *current_node = main_article_list->head;
     int current_id = main_article_list->articles_count;
-    cout << id << endl;
-    pause();
     if (current_node == NULL)
         return NULL;
     else {
@@ -97,7 +95,7 @@ ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, str
         }
         return NULL;
     } else {
-        return search_article_node_by_id(main_article_list, stoi(value));
+        return string_is_num(value) ? search_article_node_by_id(main_article_list, stoi(value)) : NULL;
     }
     return NULL;
 }
