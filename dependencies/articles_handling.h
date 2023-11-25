@@ -21,6 +21,10 @@ ArticleNode *create_article_node(Article article){
     return new_article_node;
 }
 
+int last_article_id(ArticlesList *main_article_list){
+    return (main_article_list->head != NULL) ? main_article_list->head->article.primary_key : 0;
+}
+
 void append_article_to_article_list(ArticlesList *article_list, Article article){
     ArticleNode *new_article_node = create_article_node(article);
     ArticleNode *aux_article_node = NULL;
@@ -35,7 +39,8 @@ void append_article_to_article_list(ArticlesList *article_list, Article article)
 
 
 void show_article(Article article){
-    cout << "~~ " << article.code << endl;
+    cout << "~~ " << article.primary_key << endl;
+    cout << "\t\tCodigo : " << article.code << endl;
     cout << "\t\tNombre : " << article.name << endl;
     cout << "\t\tCantidad : " << article.count << endl;
     cout << "\t\tPrecio : " << article.price << endl;
@@ -55,7 +60,7 @@ void show_articles_list(ArticlesList *article_list){
 
 Article create_article(string code, int count, string name, float price ){
     Article new_article;
-    new_article.primary_key = 1;
+    new_article.primary_key = last_article_id(MAIN_ARTICLE_LIST) + 1;
     new_article.code = code; 
     new_article.count = count;
     new_article.name = name;
@@ -105,3 +110,4 @@ ArticleNode *search_article(){
     cin >> value;
     return search_element_in_article_list(MAIN_ARTICLE_LIST, selected_option, value);
 }
+
