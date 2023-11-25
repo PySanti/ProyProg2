@@ -23,6 +23,8 @@ void handle_articles(){
     int selected_option = print_menu(article_options, sizeof(article_options) / sizeof(article_options[0]), "Menu de Artículos");
     ArticleNode *found_article = NULL;
     string stringed_selected_option = to_lower(article_options[selected_option-1]);
+    string found_article_code;
+
     if (back_option_selected(stringed_selected_option))
         return;
     if (string_contains(stringed_selected_option, "agregar")){
@@ -36,6 +38,7 @@ void handle_articles(){
         }  else {
             found_article = search_article();
             if (found_article){
+                found_article_code = found_article->article.code;
                 if (string_contains(stringed_selected_option, "buscar")){
                     system("clear");
                     cout << Y_SEPARATION << X_SEPARATION << "Articulo conseguido !!!" << endl;
@@ -44,7 +47,11 @@ void handle_articles(){
                 } else if (string_contains(stringed_selected_option, "modificar")){
                     //
                 }   else if (string_contains(stringed_selected_option, "eliminar")){
-                    
+                    if (delete_article_node(MAIN_ARTICLE_LIST, found_article)){
+                        success_screen("El articulo " + found_article_code + " ha sido eliminado exitosamente !");
+                    } else {
+                        success_screen("El articulo " + found_article_code + " no ha podido ser eliminado !");
+                    }
                 }
             } else {
                 success_screen("El articulo no ha sido conseguido !!");

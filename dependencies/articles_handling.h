@@ -40,11 +40,11 @@ void append_article_to_article_list(ArticlesList *article_list, Article article)
 
 
 void show_article(Article article){
-    cout << "~~ " << article.primary_key << endl;
-    cout << "\t\tCodigo : " << article.code << endl;
-    cout << "\t\tNombre : " << article.name << endl;
-    cout << "\t\tCantidad : " << article.count << endl;
-    cout << "\t\tPrecio : " << article.price << endl;
+    cout << X_SEPARATION << "\t\t[" << article.primary_key << "]\n" << endl;
+    cout << X_SEPARATION << "Codigo     : " << article.code << endl;
+    cout << X_SEPARATION << "Nombre     : " << article.name << endl;
+    cout << X_SEPARATION << "Cantidad   : " << article.count << endl;
+    cout << X_SEPARATION << "Precio     : " << article.price << endl << endl;
 }
 
 void show_articles_list(ArticlesList *article_list){
@@ -71,7 +71,7 @@ Article create_article(string code, int count, string name, float price ){
 ArticleNode *search_article_node_by_id(ArticlesList *main_article_list, int id){
     ArticleNode *current_node = main_article_list->head;
     int current_id = main_article_list->articles_count;
-    if (current_node == NULL)
+    if (id < 1 || id > current_id || current_node == NULL)
         return NULL;
     else {
         while (current_node != NULL){
@@ -136,3 +136,29 @@ ArticleNode *search_article(){
     return search_element_in_article_list(MAIN_ARTICLE_LIST, selected_option, value);
 }
 
+
+bool delete_article_node(ArticlesList *main_article_list, ArticleNode *target_node){
+    ArticleNode *current_node = main_article_list->head, *last_node = NULL;
+    ArticleNode *aux_node = NULL;
+    if (main_article_list->head == NULL){
+        return false;
+    } else {
+        while (current_node != NULL){
+            if (current_node->article.primary_key == target_node->article.primary_key){
+                if (last_node){
+                    last_node->next = current_node->next;
+                    current_node->next = NULL;
+                } else {
+                    aux_node = current_node->next;
+                    current_node->next = NULL;
+                    main_article_list->head = aux_node;
+                }
+                delete current_node;
+                return true;
+            }
+            last_node = current_node;
+            current_node = current_node->next;
+        }
+        return false;
+    }
+}
