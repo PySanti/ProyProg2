@@ -129,3 +129,11 @@ map<string, string> validate_form(map<string, string> patterns_dict){
     }
     return patterns_dict;
 }
+
+void success_screen(string msg){
+    system("clear");
+    cout << "\n\n\n\n\n\n\t\t\t\t" << uppercase(msg);
+    cout << "\n\n\n";
+    cout << "\t\t\t Pulse enter para continuar ... ";
+    getchar();
+}
