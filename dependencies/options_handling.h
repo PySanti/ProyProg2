@@ -6,7 +6,10 @@ bool back_option_selected(string stringed_selected_option){
     return (stringed_selected_option == "volver") ? true : false;
 }
 
+bool string_contains(string str, string target){
+    return str.find(target) != string::npos;
 
+}
 
 void handle_articles(){
     string article_options[] = {
@@ -22,30 +25,32 @@ void handle_articles(){
     string stringed_selected_option = to_lower(article_options[selected_option-1]);
     if (back_option_selected(stringed_selected_option))
         return;
-    if (stringed_selected_option.find("agregar") != string::npos){
+    if (string_contains(stringed_selected_option, "agregar")){
         string articles_creation_handling_response = articles_creation_handling();
         if (articles_creation_handling_response != ""){
             success_screen("El producto " + articles_creation_handling_response + " ha sido agregado exitosamente");
         }
-    } else if (stringed_selected_option.find("buscar") != string::npos){
+    } else if (string_contains(stringed_selected_option, "buscar") || string_contains(stringed_selected_option, "eliminar") || string_contains(stringed_selected_option, "modificar")){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("No hay artículos en la lista aun !");
         }  else {
             found_article = search_article();
             if (found_article){
-                system("clear");
-                cout << Y_SEPARATION << X_SEPARATION << "Articulo conseguido !!!" << endl;
-                show_article(found_article->article);
-                pause();
+                if (string_contains(stringed_selected_option, "buscar")){
+                    system("clear");
+                    cout << Y_SEPARATION << X_SEPARATION << "Articulo conseguido !!!" << endl;
+                    show_article(found_article->article);
+                    pause();
+                } else if (string_contains(stringed_selected_option, "modificar")){
+                    //
+                }   else if (string_contains(stringed_selected_option, "eliminar")){
+                    
+                }
             } else {
                 success_screen("El articulo no ha sido conseguido !!");
             }
         }
-    } else if (stringed_selected_option.find("eliminar") != string::npos){
-        cout << "Eliminar elemento a la lista de articulos" << endl;
-    } else if (stringed_selected_option.find("modificar") != string::npos){
-        cout << "Modificar elemento a la lista de articulos" << endl;
-    } else if (stringed_selected_option.find("ver") != string::npos){
+    } else if (string_contains(stringed_selected_option, "ver")){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("No hay artículos en la lista aun !");
         } else {
