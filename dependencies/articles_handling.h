@@ -12,6 +12,7 @@ typedef struct ArticlesList {
     ArticleNode *head = NULL;
 } ArticlesList;
 
+ArticlesList *MAIN_ARTICLE_LIST = new ArticlesList;
 
 ArticleNode *create_article_node(Article article){
     ArticleNode *new_article_node = new ArticleNode;
@@ -22,35 +23,40 @@ ArticleNode *create_article_node(Article article){
 
 void append_article_to_article_list(ArticlesList *article_list, Article article){
     ArticleNode *new_article_node = create_article_node(article);
-    ArticleNode *current_node = article_list->head;
-    ArticleNode *last_node = NULL;
-    while (current_node != NULL){
-        last_node = current_node;
-        current_node = current_node->next;
-    }
-    if (last_node != NULL){
-        last_node->next = new_article_node;
-    } else {
+    ArticleNode *aux_article_node = NULL;
+    if (article_list->head == NULL){
         article_list->head = new_article_node;
+    } else {
+        aux_article_node = article_list->head;
+        article_list->head = new_article_node;
+        article_list->head->next = aux_article_node;
     }
+}
+
+void show_article(Article article){
+    cout << article.name << ", " << article.code << ", " << article.count << ", " << article.price << endl;
 }
 
 void show_articles_list(ArticlesList *article_list){
     ArticleNode *current_node = article_list->head;
-    if (article_list->head == NULL)
+    if (article_list->head == NULL){
+        cout << "No hay articulos en la lista !";
         return;
+    }
     else{
         while (current_node != NULL){
-            cout << current_node->article.name << endl;
+            show_article(current_node->article);
             current_node = current_node->next;
         }
     }
 }
 
+
+
 Article create_article(string code, int count, string name, float price ){
     Article new_article;
     new_article.primary_key = 1;
-    new_article.code = code;
+    new_article.code = code; 
     new_article.count = count;
     new_article.name = name;
     new_article.price = price;
@@ -58,7 +64,7 @@ Article create_article(string code, int count, string name, float price ){
 }
 
 
-void articles_creation_handling(ArticlesList *MAIN_ARTICLES_LIST){
+void articles_creation_handling(){
     Article new_article;
     std::map<std::string, string> pattern_dict = {
         {"nombre",      "_"},
@@ -67,6 +73,6 @@ void articles_creation_handling(ArticlesList *MAIN_ARTICLES_LIST){
         {"precio" ,     FLOAT_NUMBER_REGEX}
     };
     pattern_dict = validate_form(pattern_dict);
-    new_article = create_article(pattern_dict["code"], stoi(pattern_dict["cantidad"]), pattern_dict["nombre"], stof(pattern_dict["precio"]));
-    append_article_to_article_list(MAIN_ARTICLES_LIST, new_article);
+    new_article = create_article(uppercase(pattern_dict["codigo"]), stoi(pattern_dict["cantidad"]), pattern_dict["nombre"], stof(pattern_dict["precio"]));
+    append_article_to_article_list(MAIN_ARTICLE_LIST, new_article);
 }

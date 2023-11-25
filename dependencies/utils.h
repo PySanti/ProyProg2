@@ -126,6 +126,6 @@ map<string, string> validate_form(map<string, string> patterns_dict){
                 current_field_iterator ++;
             }
         }
-    }        
+    }
     return patterns_dict;
 }

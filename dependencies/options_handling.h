@@ -6,7 +6,7 @@ bool back_option_selected(string stringed_selected_option){
     return (stringed_selected_option == "volver") ? true : false;
 }
 
-void handle_articles(ArticlesList *MAIN_ARTICLE_LIST){
+void handle_articles(){
     string article_options[] = {
         "Ver artículos",
         "Agregar articulo",
@@ -20,7 +20,7 @@ void handle_articles(ArticlesList *MAIN_ARTICLE_LIST){
     if (back_option_selected(stringed_selected_option))
         return;
     if (stringed_selected_option.find("agregar") != string::npos){
-        articles_creation_handling(MAIN_ARTICLE_LIST);
+        articles_creation_handling();
     } else if (stringed_selected_option.find("buscar") != string::npos){
         cout << "Buscar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("eliminar") != string::npos){
@@ -29,7 +29,7 @@ void handle_articles(ArticlesList *MAIN_ARTICLE_LIST){
         cout << "Modificar elemento a la lista de articulos" << endl;
     } else if (stringed_selected_option.find("ver") != string::npos){
         show_articles_list(MAIN_ARTICLE_LIST);
-        getchar();
+        cin >> stringed_selected_option;
     }
     return;
 }

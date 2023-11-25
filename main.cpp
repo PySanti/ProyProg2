@@ -20,10 +20,6 @@ string main_options[] = {
 
 
 
-
-ArticlesList *MAIN_ARTICLE_LIST = new ArticlesList;
-
-
 int main(int argc, char **argv){
     bool exit = false;
     while (!exit){
@@ -31,7 +27,7 @@ int main(int argc, char **argv){
         switch (selected_option)
         {
             case 1:
-                handle_articles(MAIN_ARTICLE_LIST);
+                handle_articles();
                 break;
             case 2:
                 handle_stock();
