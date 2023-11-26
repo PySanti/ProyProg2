@@ -15,7 +15,11 @@ size_t get_length(T(&)[N]) {
     return N;
 }
 
-
+bool validate_field(string pattern,string value){
+    regex current_pattern;
+    current_pattern = pattern;
+    return (pattern == "_" || regex_search(value, current_pattern)) && (value.length() > 0);
+}
 /**
  * retornara true si el valor ascii_num es un numero segun ascii
  * false en caso contrario
@@ -93,7 +97,6 @@ map<string, string> validate_form(map<string, string> patterns_dict){
     int current_field = 0;
     int current_field_iterator = 0;
     bool validation_finished = false;
-    regex current_pattern;
     string current_value;
     string error_log;
     while (!validation_finished){
@@ -109,8 +112,7 @@ map<string, string> validate_form(map<string, string> patterns_dict){
                 cout << X_SEPARATION << capitalize(field) << " : ";
                 getline(cin, current_value);
                 cout << endl;
-                current_pattern = pattern;
-                if (pattern == "_" || regex_search(current_value, current_pattern)){
+                if (validate_field(pattern, current_value)){
                     patterns_dict[field] = current_value;
                     current_field ++;
                     current_field_iterator = 0;

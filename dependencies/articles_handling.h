@@ -140,8 +140,6 @@ Article set_article(Article article, std::map<std::string, string> pattern_dict)
     };
     string error_log = "";
     string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIÓN : Selecciona el parámetro de configuración ")-1]);
-    regex pattern;
-    pattern = pattern_dict[selected_option]; 
     while (true){
         system("clear");
         cout << Y_SEPARATION << current_x_sep;
@@ -149,7 +147,7 @@ Article set_article(Article article, std::map<std::string, string> pattern_dict)
             cout << error_log << endl << current_x_sep;
         cout << "Ingresa el nuevo valor para " + selected_option + " : ";
         getline(cin, value);
-        if ((pattern_dict[selected_option] == "_") || (regex_search(value, pattern)))
+        if (validate_field(pattern_dict[selected_option], value))
             break;
         else
             error_log = "Has ingresado un valor invalido para " + selected_option;
