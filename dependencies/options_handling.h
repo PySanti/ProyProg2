@@ -184,9 +184,10 @@ void handle_discounts(){
 void handle_sellers(){
     SellerNode *found_seller = NULL;
     std::map<std::string, string> pattern_dict = {
-        {"nombre",                "_"             },
-        {"fecha de ingreso",      INT_NUMBER_REGEX},
-        {"comision" ,             FLOAT_NUMBER_REGEX},
+        {"nombre",           "_"             },
+        {"fecha de ingreso", INT_NUMBER_REGEX},
+        {"cedula",           INT_NUMBER_REGEX},
+        {"comision" ,        FLOAT_NUMBER_REGEX},
     };
     string found_seller_name;
     string seller_options[] = {

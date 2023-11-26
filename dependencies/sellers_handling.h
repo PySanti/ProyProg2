@@ -47,6 +47,7 @@ void show_seller(Seller seller){
     cout << X_SEPARATION << "Nombre             : " << seller.name << endl;
     cout << X_SEPARATION << "Fecha de ingreso   : " << seller.entry_date << endl;
     cout << X_SEPARATION << "Comision           : " << seller.comission << "%"  << endl;
+    cout << X_SEPARATION << "Cedula             : " << seller.cedula  << endl;
 }
 
 void show_sellers_list(SellersList *seller_list){
@@ -61,12 +62,13 @@ void show_sellers_list(SellersList *seller_list){
 
 
 
-Seller create_seller(string name, string entry_date, float comission ){
+Seller create_seller(string name, string entry_date, float comission, int cedula ){
     Seller new_seller;
     new_seller.primary_key = last_seller_id(MAIN_SELLERS_LIST) + 1;
     new_seller.name = name;
     new_seller.entry_date = entry_date;
     new_seller.comission = comission;
+    new_seller.cedula = cedula;
     return new_seller;
 }
 SellerNode *search_seller_node_by_id(SellersList *main_seller_list, int id){
@@ -88,7 +90,7 @@ SellerNode *search_element_in_seller_list(SellersList *main_seller_list, string 
     SellerNode *current_node = main_seller_list->head;
     if (field != "id"){
         while (current_node != NULL){
-            if ((field == "nombre" && to_lower(current_node->seller.name) == to_lower(value)))
+            if ((field == "nombre" && to_lower(current_node->seller.name) == to_lower(value)) || (field == "cedula" && string_is_num(value) && current_node->seller.cedula == stoi(value)))
                 return current_node;
             current_node = current_node->next;
         }
@@ -101,11 +103,11 @@ SellerNode *search_element_in_seller_list(SellersList *main_seller_list, string 
 string sellers_creation_handling(std::map<std::string, string> pattern_dict){
     Seller new_seller;
     pattern_dict = validate_form(pattern_dict);
-    if (search_element_in_seller_list(MAIN_SELLERS_LIST, "nombre", to_lower(pattern_dict["nombre"]))){
-        success_screen("Error, ya existe un vendedor con el nombre indicado (" + pattern_dict["nombre"] + ")");
+    if (search_element_in_seller_list(MAIN_SELLERS_LIST, "nombre", to_lower(pattern_dict["nombre"])) || search_element_in_seller_list(MAIN_SELLERS_LIST, "cedula", to_lower(pattern_dict["cedula"]))){
+        success_screen("Error, ese vendedor ya ha sido agregado a la base de datos (" + pattern_dict["cedula"] +")");
         return "";
     } else {
-        new_seller = create_seller(pattern_dict["nombre"], pattern_dict["fecha de ingreso"], stof(pattern_dict["comision"]));
+        new_seller = create_seller(pattern_dict["nombre"], pattern_dict["fecha de ingreso"], stof(pattern_dict["comision"]), stoi(pattern_dict["cedula"]));
         append_seller_to_sellers_list(MAIN_SELLERS_LIST, new_seller);
         return pattern_dict["nombre"];
     }
@@ -120,6 +122,7 @@ SellerNode *search_seller(){
     string options[] = {
         "Nombre",
         "Id",
+        "Cedula"
     };
     selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "MENU DE BÚSQUEDA : Selecciona el parámetro de búsqueda")-1]);
     cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
