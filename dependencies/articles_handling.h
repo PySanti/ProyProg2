@@ -125,7 +125,7 @@ ArticleNode *search_article(){
     };
     selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "MENU DE BÚSQUEDA : Selecciona el parámetro de búsqueda")-1]);
     cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
-    cin >> value;
+    getline(cin, value);
     return search_element_in_article_list(MAIN_ARTICLE_LIST, selected_option, value);
 }
 

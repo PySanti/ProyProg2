@@ -64,6 +64,7 @@ Client create_client(string name, string direction, string phone_number ){
     new_client.primary_key = last_client_id(MAIN_CLIENTS_LIST) + 1;
     new_client.name = name;
     new_client.direction = direction;
+    new_client.phone_number = phone_number;
     return new_client;
 }
 ClientNode *search_client_node_by_id(ClientsList *main_client_list, int id){
@@ -102,7 +103,7 @@ string clients_creation_handling(std::map<std::string, string> pattern_dict){
         success_screen("Error, ya existe un cliente con el nombre indicado (" + pattern_dict["nombre"] + ")");
         return "";
     } else {
-        new_client = create_client(pattern_dict["nombre"], pattern_dict["direccion"], pattern_dict["phone-number"]);
+        new_client = create_client(pattern_dict["nombre"], pattern_dict["direccion"], pattern_dict["numero telefonico"]);
         append_client_to_client_list(MAIN_CLIENTS_LIST, new_client);
         return pattern_dict["nombre"];
     }
@@ -120,7 +121,7 @@ ClientNode *search_client(){
     };
     selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "MENU DE BÚSQUEDA : Selecciona el parámetro de búsqueda")-1]);
     cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
-    cin >> value;
+    getline(cin, value);
     return search_element_in_client_list(MAIN_CLIENTS_LIST, selected_option, value);
 }
 

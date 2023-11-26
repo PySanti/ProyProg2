@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <stdio.h>
 #include "./dependencies/macros.h"
 #include "./dependencies/menus.h"
 #include "./dependencies/options_handling.h"
@@ -53,6 +54,7 @@ int main(int argc, char **argv){
             case 9:
                 exit = true;
                 break;
+        clean_buffer();
         } (selected_option);
     }
     return 0;

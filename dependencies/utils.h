@@ -6,7 +6,10 @@
 
 using namespace std;
 
-
+void clean_buffer(){
+    cin.clear();
+    cin.ignore(1);
+}
 template <typename T, size_t N>
 size_t get_length(T(&)[N]) {
     return N;
@@ -87,6 +90,7 @@ string capitalize(string target){
  * asignar '-' como valor
 */
 map<string, string> validate_form(map<string, string> patterns_dict){
+    clean_buffer();
     int current_field = 0;
     int current_field_iterator = 0;
     bool validation_finished = false;
@@ -103,8 +107,8 @@ map<string, string> validate_form(map<string, string> patterns_dict){
             if (current_field_iterator == current_field){
                 if (error_log != "")
                     cout << X_SEPARATION << error_log << endl;
-                cout << X_SEPARATION << capitalize(field) << " (sin espacios) : ";
-                cin >> current_value;
+                cout << X_SEPARATION << capitalize(field) << " : ";
+                getline(cin, current_value);
                 cout << endl;
                 current_pattern = pattern;
                 if (pattern == "_" || regex_search(current_value, current_pattern)){
@@ -131,8 +135,7 @@ map<string, string> validate_form(map<string, string> patterns_dict){
 }
 
 void pause(){
-    cin.clear();
-    cin.ignore(1);
+    clean_buffer();
     cin.get();
 }
 
@@ -143,3 +146,5 @@ void success_screen(string msg){
     cout << X_SEPARATION << "Pulse enter para continuar ... ";
     pause();
 }
+
+

@@ -69,7 +69,6 @@ void print_menu_title(string menu_title){
  * Posteriormente, retornara la opcion ingresada
 */
 int print_menu(string options_list[], int options_count, string menu_title){
-    cin.clear();
     int min_option = 1;
     int max_option = options_count;
     bool failed = false;
@@ -86,4 +85,5 @@ int print_menu(string options_list[], int options_count, string menu_title){
         else
             return checked_option; 
     };
+    clean_buffer();
 }
