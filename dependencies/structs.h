@@ -11,7 +11,7 @@ typedef struct Article {
 } Article;
 
 typedef struct Client {
-    int id;
+    int primary_key;
     string name;
     string direction;
     string phone_number;

@@ -99,14 +99,8 @@ ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, str
     }
 }
 
-string articles_creation_handling(){
+string articles_creation_handling(std::map<std::string, string> pattern_dict){
     Article new_article;
-    std::map<std::string, string> pattern_dict = {
-        {"nombre",      "_"},
-        {"codigo",      CODE_NUMBER_REGEX},
-        {"cantidad" ,   INT_NUMBER_REGEX},
-        {"precio" ,     FLOAT_NUMBER_REGEX}
-    };
     pattern_dict = validate_form(pattern_dict);
     if (search_element_in_article_list(MAIN_ARTICLE_LIST, "codigo", to_lower(pattern_dict["codigo"]))){
         success_screen("Error, ya existe un articulo con el codigo indicado (" + pattern_dict["codigo"] + ")");
@@ -135,14 +129,8 @@ ArticleNode *search_article(){
     return search_element_in_article_list(MAIN_ARTICLE_LIST, selected_option, value);
 }
 
-Article set_article(Article article){
+Article set_article(Article article, std::map<std::string, string> pattern_dict){
     string current_x_sep = "\t\t\t\t\t\t";
-    std::map<std::string, string> pattern_dict = {
-        {"nombre",      "_"},
-        {"codigo",      CODE_NUMBER_REGEX},
-        {"cantidad" ,   INT_NUMBER_REGEX},
-        {"precio" ,     FLOAT_NUMBER_REGEX}
-    };
     string value = "";
     string setting_options[] = {
         "Nombre",
@@ -232,6 +220,6 @@ void delete_articles_list(){
             MAIN_ARTICLE_LIST->head = aux_node;
             current_node = MAIN_ARTICLE_LIST->head;
         }
-        return;
+        return ;
     }
 }
