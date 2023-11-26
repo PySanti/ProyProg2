@@ -78,8 +78,9 @@ void handle_articles(){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("Aun no hay artículos en la lista !");
         } else {
-            delete_articles_list();
-            success_screen("Lista de artículos eliminada con éxito !");
+            if (delete_articles_list()){
+                success_screen("Lista de artículos eliminada con éxito !");
+            }
         }
     }
     return;
@@ -160,8 +161,9 @@ void handle_clients(){
         if (MAIN_CLIENTS_LIST->head == NULL){
             success_screen("Aun no hay clientes en la lista !");
         } else {
-            delete_clients_list();
-            success_screen("Lista de clientes eliminada con éxito !");
+            if (delete_clients_list()){
+                success_screen("Lista de clientes eliminada con éxito !");
+            }
         }
     }
     return;
@@ -183,7 +185,7 @@ void handle_sellers(){
     SellerNode *found_seller = NULL;
     std::map<std::string, string> pattern_dict = {
         {"nombre",                "_"             },
-        {"fecha de ingreso",      DATE_REGEX},
+        {"fecha de ingreso",      INT_NUMBER_REGEX},
         {"comision" ,             FLOAT_NUMBER_REGEX},
     };
     string found_seller_name;
@@ -243,8 +245,9 @@ void handle_sellers(){
         if (MAIN_SELLERS_LIST->head == NULL){
             success_screen("Aun no hay vendedores en la lista !");
         } else {
-            delete_sellers_list();
-            success_screen("Lista de vendedores eliminada con éxito !");
+            if (delete_sellers_list()){
+                success_screen("Lista de vendedores eliminada con éxito !");
+            }
         }
     }
     return;

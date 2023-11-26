@@ -2,3 +2,4 @@ Agregar colores
 Agregar loader en la parte inicial del proyecto (...)
 Agregar pantalla final
 Agregar opcion para revisar si existe algun producto con el mismo codigo
+Solucion expresiones regulares para fechas

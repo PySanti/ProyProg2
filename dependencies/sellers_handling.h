@@ -46,7 +46,7 @@ void show_seller(Seller seller){
     cout << X_SEPARATION << "\t\t[" << seller.primary_key << "]\n" << endl;
     cout << X_SEPARATION << "Nombre             : " << seller.name << endl;
     cout << X_SEPARATION << "Fecha de ingreso   : " << seller.entry_date << endl;
-    cout << X_SEPARATION << "Comision           : " << seller.comission  << endl;
+    cout << X_SEPARATION << "Comision           : " << seller.comission << "%"  << endl;
 }
 
 void show_sellers_list(SellersList *seller_list){
@@ -187,7 +187,7 @@ bool delete_seller_node(SellersList *main_seller_list, SellerNode *target_node){
         return false;
     }
 }
-void delete_sellers_list(){
+bool delete_sellers_list(){
     string option;
     string error_log = "";
     SellerNode *current_node = MAIN_SELLERS_LIST->head;
@@ -206,7 +206,7 @@ void delete_sellers_list(){
             break;
     }
     if (option == "n")
-        return;
+        return false;
     else{
         while (current_node != NULL){
             aux_node = current_node->next;
@@ -215,6 +215,6 @@ void delete_sellers_list(){
             MAIN_SELLERS_LIST->head = aux_node;
             current_node = MAIN_SELLERS_LIST->head;
         }
-        return ;
+        return true;
     }
 }

@@ -185,7 +185,7 @@ bool delete_client_node(ClientsList *main_client_list, ClientNode *target_node){
         return false;
     }
 }
-void delete_clients_list(){
+bool delete_clients_list(){
     string option;
     string error_log = "";
     ClientNode *current_node = MAIN_CLIENTS_LIST->head;
@@ -204,7 +204,7 @@ void delete_clients_list(){
             break;
     }
     if (option == "n")
-        return;
+        return false;
     else{
         while (current_node != NULL){
             aux_node = current_node->next;
@@ -213,6 +213,6 @@ void delete_clients_list(){
             MAIN_CLIENTS_LIST->head = aux_node;
             current_node = MAIN_CLIENTS_LIST->head;
         }
-        return ;
+        return true;
     }
 }

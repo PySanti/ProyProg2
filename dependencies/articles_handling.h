@@ -190,7 +190,7 @@ bool delete_article_node(ArticlesList *main_article_list, ArticleNode *target_no
         return false;
     }
 }
-void delete_articles_list(){
+bool delete_articles_list(){
     string option;
     string error_log = "";
     ArticleNode *current_node = MAIN_ARTICLE_LIST->head;
@@ -209,7 +209,7 @@ void delete_articles_list(){
             break;
     }
     if (option == "n")
-        return;
+        return false;
     else{
         while (current_node != NULL){
             aux_node = current_node->next;
@@ -218,6 +218,6 @@ void delete_articles_list(){
             MAIN_ARTICLE_LIST->head = aux_node;
             current_node = MAIN_ARTICLE_LIST->head;
         }
-        return ;
+        return true;
     }
 }
