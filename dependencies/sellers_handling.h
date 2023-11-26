@@ -13,6 +13,8 @@ typedef struct SellersList {
     SellerNode *head = NULL;
 } SellersList;
 
+
+
 SellersList *MAIN_SELLERS_LIST = new SellersList;
 
 SellerNode *create_seller_node(Seller seller){

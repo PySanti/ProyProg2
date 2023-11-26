@@ -8,4 +8,4 @@
 #define PHONE_NUMBER_REGEX "^[0-9]{10}$"
 #define FLOAT_NUMBER_REGEX "^[+-]?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][+-]?[0-9]+)?$"
 #define CODE_NUMBER_REGEX "^[A-Za-z][0-9]{6}$"
-#define DATE_REGEX "^([0-9]{1,2})\/([0-9]{1,2})\/([1500-2023]{4})$"
+#define DATE_REGEX "^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$"
