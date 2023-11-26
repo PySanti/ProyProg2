@@ -1,0 +1,218 @@
+#include <iostream>
+#include <regex>
+
+using namespace std;
+
+typedef struct SellerNode {
+    Seller seller;
+    SellerNode *next;
+} SellerNode;
+
+typedef struct SellersList {
+    int sellers_count = 0;
+    SellerNode *head = NULL;
+} SellersList;
+
+SellersList *MAIN_SELLERS_LIST = new SellersList;
+
+SellerNode *create_seller_node(Seller seller){
+    SellerNode *new_seller_node = new SellerNode;
+    new_seller_node->next = NULL;
+    new_seller_node->seller = seller;
+    return new_seller_node;
+}
+
+int last_seller_id(SellersList *main_seller_list){
+    return (main_seller_list->head != NULL) ? main_seller_list->head->seller.primary_key : 0;
+}
+
+void append_seller_to_sellers_list(SellersList *seller_list, Seller seller){
+    SellerNode *new_seller_node = create_seller_node(seller);
+    SellerNode *aux_seller_node = NULL;
+    if (seller_list->head == NULL){
+        seller_list->head = new_seller_node;
+    } else {
+        aux_seller_node = seller_list->head;
+        seller_list->head = new_seller_node;
+        seller_list->head->next = aux_seller_node;
+    }
+    seller_list->sellers_count++;
+}
+
+
+void show_seller(Seller seller){
+    cout << X_SEPARATION << "\t\t[" << seller.primary_key << "]\n" << endl;
+    cout << X_SEPARATION << "Nombre             : " << seller.name << endl;
+    cout << X_SEPARATION << "Fecha de ingreso   : " << seller.entry_date << endl;
+    cout << X_SEPARATION << "Comision           : " << seller.comission  << endl;
+}
+
+void show_sellers_list(SellersList *seller_list){
+    SellerNode *current_node = seller_list->head;
+    system("clear");
+    while (current_node != NULL){
+        show_seller(current_node->seller);
+        current_node = current_node->next;
+    }
+    pause();
+}
+
+
+
+Seller create_seller(string name, string entry_date, float comission ){
+    Seller new_seller;
+    new_seller.primary_key = last_seller_id(MAIN_SELLERS_LIST) + 1;
+    new_seller.name = name;
+    new_seller.entry_date = entry_date;
+    new_seller.comission = comission;
+    return new_seller;
+}
+SellerNode *search_seller_node_by_id(SellersList *main_seller_list, int id){
+    SellerNode *current_node = main_seller_list->head;
+    if (current_node == NULL)
+        return NULL;
+    else {
+        while (current_node != NULL){
+            if (current_node->seller.primary_key == id){
+                return current_node;
+            }
+            current_node = current_node->next;
+        }
+        return NULL;
+    }
+}
+
+SellerNode *search_element_in_seller_list(SellersList *main_seller_list, string field, string value){
+    SellerNode *current_node = main_seller_list->head;
+    if (field != "id"){
+        while (current_node != NULL){
+            if ((field == "nombre" && to_lower(current_node->seller.name) == to_lower(value)))
+                return current_node;
+            current_node = current_node->next;
+        }
+        return NULL;
+    } else {
+        return string_is_num(value) ? search_seller_node_by_id(main_seller_list, stoi(value)) : NULL;
+    }
+}
+
+string sellers_creation_handling(std::map<std::string, string> pattern_dict){
+    Seller new_seller;
+    pattern_dict = validate_form(pattern_dict);
+    if (search_element_in_seller_list(MAIN_SELLERS_LIST, "nombre", to_lower(pattern_dict["nombre"]))){
+        success_screen("Error, ya existe un vendedor con el nombre indicado (" + pattern_dict["nombre"] + ")");
+        return "";
+    } else {
+        new_seller = create_seller(pattern_dict["nombre"], pattern_dict["fecha de ingreso"], stof(pattern_dict["comision"]));
+        append_seller_to_sellers_list(MAIN_SELLERS_LIST, new_seller);
+        return pattern_dict["nombre"];
+    }
+}
+
+
+
+
+SellerNode *search_seller(){
+    string selected_option;
+    string value;
+    string options[] = {
+        "Nombre",
+        "Id",
+    };
+    selected_option = to_lower(options[print_menu(options, sizeof(options) / sizeof(options[0]), "MENU DE BÚSQUEDA : Selecciona el parámetro de búsqueda")-1]);
+    cout << X_SEPARATION << "-> Ingresa el valor del " + selected_option + " para la búsqueda : ";
+    getline(cin, value);
+    return search_element_in_seller_list(MAIN_SELLERS_LIST, selected_option, value);
+}
+
+Seller set_seller(Seller seller, std::map<std::string, string> pattern_dict){
+    string current_x_sep = "\t\t\t\t\t\t";
+    string value = "";
+    string setting_options[] = {
+        "Nombre",
+        "Fecha De Ingreso",
+        "Comision",
+    };
+    string error_log = "";
+    string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIÓN : Selecciona el parámetro de configuración ")-1]);
+    regex pattern;
+    pattern = pattern_dict[selected_option]; 
+    while (true){
+        system("clear");
+        cout << Y_SEPARATION << current_x_sep;
+        if (error_log != "")
+            cout << error_log << endl << current_x_sep;
+        cout << "Ingresa el nuevo valor para " + selected_option + " : ";
+        getline(cin,value);
+        if ((pattern_dict[selected_option] == "_") || (regex_search(value, pattern)))
+            break;
+        else
+            error_log = "Has ingresado un valor invalido para " + selected_option;
+    }
+    if (selected_option == "nombre")
+        seller.name = value;
+    if (selected_option == "comision")
+        seller.comission = stof(value);
+    if (selected_option == "fecha de ingreso")
+        seller.entry_date = value;
+    return seller;
+}
+
+
+bool delete_seller_node(SellersList *main_seller_list, SellerNode *target_node){
+    SellerNode *current_node = main_seller_list->head, *last_node = NULL;
+    SellerNode *aux_node = NULL;
+    if (main_seller_list->head == NULL){
+        return false;
+    } else {
+        while (current_node != NULL){
+            if (current_node->seller.primary_key == target_node->seller.primary_key){
+                if (last_node){
+                    last_node->next = current_node->next;
+                    current_node->next = NULL;
+                } else {
+                    aux_node = current_node->next;
+                    current_node->next = NULL;
+                    main_seller_list->head = aux_node;
+                }
+                delete current_node;
+                main_seller_list->sellers_count--;
+                return true;
+            }
+            last_node = current_node;
+            current_node = current_node->next;
+        }
+        return false;
+    }
+}
+void delete_sellers_list(){
+    string option;
+    string error_log = "";
+    SellerNode *current_node = MAIN_SELLERS_LIST->head;
+    SellerNode *aux_node;
+    while (true){
+        system("clear");
+        cout << "\n\n\n\n\n\n\n";
+        if (error_log != "")
+            cout << "\t\t\t" << error_log << endl;
+        cout << "\t\t\tEstas segur@ de que deseas eliminar la lista de artículos en su totalidad ? (s/n) : ";
+        getline(cin, option);
+        option = to_lower(option);
+        if (option != "s" && option != "n")
+            error_log = "Ingresa una option valida (s/n) !";
+        else
+            break;
+    }
+    if (option == "n")
+        return;
+    else{
+        while (current_node != NULL){
+            aux_node = current_node->next;
+            current_node->next = NULL;
+            delete current_node;
+            MAIN_SELLERS_LIST->head = aux_node;
+            current_node = MAIN_SELLERS_LIST->head;
+        }
+        return ;
+    }
+}

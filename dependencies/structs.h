@@ -18,7 +18,7 @@ typedef struct Client {
 } Client;
 
 typedef struct Seller {
-    int id;
+    int primary_key;
     string name;
     string entry_date;
     float comission;

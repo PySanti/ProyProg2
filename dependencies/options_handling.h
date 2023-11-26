@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./articles_handling.h"
 #include "./clients_handling.h"
+#include "./sellers_handling.h"
 using namespace std;
 
 bool back_option_selected(string stringed_selected_option){
@@ -179,28 +180,72 @@ void handle_discounts(){
 
 
 void handle_sellers(){
+    SellerNode *found_seller = NULL;
+    std::map<std::string, string> pattern_dict = {
+        {"nombre",                "_"             },
+        {"fecha de ingreso",      DATE_REGEX},
+        {"comision" ,             FLOAT_NUMBER_REGEX},
+    };
+    string found_seller_name;
     string seller_options[] = {
         "Ver vendedores",
         "Agregar vendedor",
         "Modificar vendedor",
         "Eliminar vendedor",
         "Buscar vendedor",
+        "Borrar la lista de vendedores",
         "Volver"
     };
-    int selected_option = print_menu(seller_options,sizeof(seller_options) / sizeof(seller_options[0]) , "Menu de Vendedores");
+    int selected_option = print_menu(seller_options, sizeof(seller_options) / sizeof(seller_options[0]), "Menu de Vendedores");
+
     string stringed_selected_option = to_lower(seller_options[selected_option-1]);
+
     if (back_option_selected(stringed_selected_option))
         return;
-    if (stringed_selected_option.find("agregar") != string::npos){
-        cout << "Agregar vendedor" << endl;
-    } else if (stringed_selected_option.find("buscar") != string::npos){
-        cout << "Buscar vendedor" << endl;
-    } else if (stringed_selected_option.find("eliminar") != string::npos){
-        cout << "Eliminar vendedor" << endl;
-    } else if (stringed_selected_option.find("modificar") != string::npos){
-        cout << "Modificar vendedor " << endl;
-    } else if (stringed_selected_option.find("ver") != string::npos){
-        cout << "Modificar vendedor " << endl;
+    if (string_contains(stringed_selected_option, "agregar")){
+        string seller_creation_handling_response = sellers_creation_handling(pattern_dict);
+        if (seller_creation_handling_response != ""){
+            success_screen("El vendedor " + seller_creation_handling_response + " ha sido agregado exitosamente");
+        }
+    } else if (string_contains(stringed_selected_option, "buscar") || string_contains(stringed_selected_option, "eliminar") || string_contains(stringed_selected_option, "modificar")){
+        if (MAIN_SELLERS_LIST->head == NULL){
+            success_screen("No hay vendedores en la lista aun !");
+        }  else {
+            found_seller = search_seller();
+            if (found_seller){
+                found_seller_name = found_seller->seller.name;
+                if (string_contains(stringed_selected_option, "buscar")){
+                    system("clear");
+                    cout << Y_SEPARATION << X_SEPARATION << "Vendedor conseguido !!!" << endl;
+                    show_seller(found_seller->seller);
+                    pause();
+                } else if (string_contains(stringed_selected_option, "modificar")){
+                    found_seller->seller = set_seller(found_seller->seller, pattern_dict);
+                    success_screen("Vendedor " + found_seller->seller.name + " modificado correctamente !");
+                }   else if (string_contains(stringed_selected_option, "eliminar")){
+                    if (delete_seller_node(MAIN_SELLERS_LIST, found_seller)){
+                        success_screen("El vendedor " + found_seller_name + " ha sido eliminado exitosamente !");
+                    } else {
+                        success_screen("El vendedor " + found_seller_name + " no ha podido ser eliminado !");
+                    }
+                }
+            } else {
+                success_screen("El vendedor no ha sido conseguido !!");
+            }
+        }
+    } else if (string_contains(stringed_selected_option, "ver")){
+        if (MAIN_SELLERS_LIST->head == NULL){
+            success_screen("No hay vendedores en la lista aun !");
+        } else {
+            show_sellers_list(MAIN_SELLERS_LIST);
+        }
+    } else if (string_contains(stringed_selected_option, "borrar")){
+        if (MAIN_SELLERS_LIST->head == NULL){
+            success_screen("Aun no hay vendedores en la lista !");
+        } else {
+            delete_sellers_list();
+            success_screen("Lista de vendedores eliminada con éxito !");
+        }
     }
     return;
 }
