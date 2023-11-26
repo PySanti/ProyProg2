@@ -18,6 +18,7 @@ void handle_articles(){
         "Modificar articulo",
         "Eliminar articulo",
         "Buscar articulo",
+        "Borrar la lista de artículos",
         "Volver"
     };
     int selected_option = print_menu(article_options, sizeof(article_options) / sizeof(article_options[0]), "Menu de Artículos");
@@ -63,6 +64,13 @@ void handle_articles(){
             success_screen("No hay artículos en la lista aun !");
         } else {
             show_articles_list(MAIN_ARTICLE_LIST);
+        }
+    } else if (string_contains(stringed_selected_option, "borrar")){
+        if (MAIN_ARTICLE_LIST->head == NULL){
+            success_screen("Aun no hay artículos en la lista !");
+        } else {
+            delete_articles_list();
+            success_screen("Lista de artículos eliminada con éxito !");
         }
     }
     return;

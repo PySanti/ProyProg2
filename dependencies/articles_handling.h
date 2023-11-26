@@ -204,3 +204,34 @@ bool delete_article_node(ArticlesList *main_article_list, ArticleNode *target_no
         return false;
     }
 }
+void delete_articles_list(){
+    string option;
+    string error_log = "";
+    ArticleNode *current_node = MAIN_ARTICLE_LIST->head;
+    ArticleNode *aux_node;
+    while (true){
+        system("clear");
+        cout << "\n\n\n\n\n\n\n";
+        if (error_log != "")
+            cout << "\t\t\t" << error_log << endl;
+        cout << "\t\t\tEstas segur@ de que deseas eliminar la lista de artículos en su totalidad ? (s/n) : ";
+        cin >> option;
+        option = to_lower(option);
+        if (option != "s" && option != "n")
+            error_log = "Ingresa una option valida (s/n) !";
+        else
+            break;
+    }
+    if (option == "n")
+        return;
+    else{
+        while (current_node != NULL){
+            aux_node = current_node->next;
+            current_node->next = NULL;
+            delete current_node;
+            MAIN_ARTICLE_LIST->head = aux_node;
+            current_node = MAIN_ARTICLE_LIST->head;
+        }
+        return;
+    }
+}
