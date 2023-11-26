@@ -5,6 +5,9 @@
 
 
 using namespace std;
+void pause(){
+    cin.get();
+}
 
 void clean_buffer(){
     cin.clear();
@@ -135,9 +138,6 @@ map<string, string> validate_form(map<string, string> patterns_dict){
     return patterns_dict;
 }
 
-void pause(){
-    cin.get();
-}
 
 void success_screen(string msg){
     system("clear");
