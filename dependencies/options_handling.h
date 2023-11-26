@@ -15,7 +15,7 @@ bool string_contains(string str, string target){
 void handle_articles(){
     ArticleNode *found_article = NULL;
     std::map<std::string, string> pattern_dict = {
-        {"nombre",      "_"},
+        {"nombre",      "_"             },
         {"codigo",      CODE_NUMBER_REGEX},
         {"cantidad" ,   INT_NUMBER_REGEX},
         {"precio" ,     FLOAT_NUMBER_REGEX}
@@ -112,7 +112,7 @@ void handle_clients(){
     std::map<std::string, string> pattern_dict = {
         {"nombre",               "_"},
         {"direccion",            "_"},
-        {"numero telefonico" ,   INT_NUMBER_REGEX},
+        {"numero telefonico" ,   PHONE_NUMBER_REGEX},
     };
     int selected_option = print_menu(client_options,sizeof(client_options) / sizeof(client_options[0]) , "Menu de Clientes");
     string stringed_selected_option = to_lower(client_options[selected_option-1]);
