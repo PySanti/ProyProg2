@@ -148,7 +148,7 @@ Article set_article(Article article, std::map<std::string, string> pattern_dict)
         if (error_log != "")
             cout << error_log << endl << current_x_sep;
         cout << "Ingresa el nuevo valor para " + selected_option + " : ";
-        cin >> value;
+        getline(cin, value);
         if ((pattern_dict[selected_option] == "_") || (regex_search(value, pattern)))
             break;
         else
@@ -203,7 +203,7 @@ void delete_articles_list(){
         if (error_log != "")
             cout << "\t\t\t" << error_log << endl;
         cout << "\t\t\tEstas segur@ de que deseas eliminar la lista de artículos en su totalidad ? (s/n) : ";
-        cin >> option;
+        getline(cin, option);
         option = to_lower(option);
         if (option != "s" && option != "n")
             error_log = "Ingresa una option valida (s/n) !";

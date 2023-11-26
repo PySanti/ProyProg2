@@ -33,7 +33,7 @@ string print_menu_input(bool option_failed){
     if (option_failed)
         cout << BAD_INPUT_MSG << X_SEPARATION;
     cout << "-> Ingresa una opción : ";
-    cin  >> entered_option;
+    getline(cin, entered_option);
     return entered_option;
 }
 
@@ -46,7 +46,7 @@ string print_menu_input(bool option_failed){
  * Retornara la opcion ingresada en forma de entero en caso de que la opcion sea valida
 */
 int check_entered_menu_option(string entered_option,int max_option,int min_option){
-    if ((entered_option.length() > 5) || !(string_is_num(entered_option))){
+    if ((entered_option.length() > 5) || !(string_is_num(entered_option)) || (entered_option.length() == 0)){
         return -1;
     } else{
         int numbered_option = stoi(entered_option);
@@ -85,5 +85,4 @@ int print_menu(string options_list[], int options_count, string menu_title){
         else
             return checked_option; 
     };
-    clean_buffer();
 }

@@ -90,7 +90,6 @@ string capitalize(string target){
  * asignar '-' como valor
 */
 map<string, string> validate_form(map<string, string> patterns_dict){
-    clean_buffer();
     int current_field = 0;
     int current_field_iterator = 0;
     bool validation_finished = false;
@@ -135,7 +134,6 @@ map<string, string> validate_form(map<string, string> patterns_dict){
 }
 
 void pause(){
-    clean_buffer();
     cin.get();
 }
 

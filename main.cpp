@@ -54,7 +54,6 @@ int main(int argc, char **argv){
             case 9:
                 exit = true;
                 break;
-        clean_buffer();
         } (selected_option);
     }
     return 0;
