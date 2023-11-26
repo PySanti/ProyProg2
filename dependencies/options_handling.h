@@ -45,7 +45,8 @@ void handle_articles(){
                     show_article(found_article->article);
                     pause();
                 } else if (string_contains(stringed_selected_option, "modificar")){
-                    //
+                    found_article->article = set_article(found_article->article);
+                    success_screen("Articulo " + found_article->article.code + " modificado correctamente !");
                 }   else if (string_contains(stringed_selected_option, "eliminar")){
                     if (delete_article_node(MAIN_ARTICLE_LIST, found_article)){
                         success_screen("El articulo " + found_article_code + " ha sido eliminado exitosamente !");

@@ -1,5 +1,7 @@
 #include <iostream>
 #include "structs.h"
+#include <regex>
+
 using namespace std;
 
 typedef struct ArticleNode {
@@ -44,7 +46,7 @@ void show_article(Article article){
     cout << X_SEPARATION << "Codigo     : " << article.code << endl;
     cout << X_SEPARATION << "Nombre     : " << article.name << endl;
     cout << X_SEPARATION << "Cantidad   : " << article.count << endl;
-    cout << X_SEPARATION << "Precio     : " << article.price << endl << endl;
+    cout << X_SEPARATION << "Precio     : " << article.price << "$" << endl << endl;
 }
 
 void show_articles_list(ArticlesList *article_list){
@@ -70,15 +72,13 @@ Article create_article(string code, int count, string name, float price ){
 }
 ArticleNode *search_article_node_by_id(ArticlesList *main_article_list, int id){
     ArticleNode *current_node = main_article_list->head;
-    int current_id = main_article_list->articles_count;
-    if (id < 1 || id > current_id || current_node == NULL)
+    if (current_node == NULL)
         return NULL;
     else {
         while (current_node != NULL){
-            if (current_id == id){
+            if (current_node->article.primary_key == id){
                 return current_node;
             }
-            current_id --;
             current_node = current_node->next;
         }
         return NULL;
@@ -97,7 +97,6 @@ ArticleNode *search_element_in_article_list(ArticlesList *main_article_list, str
     } else {
         return string_is_num(value) ? search_article_node_by_id(main_article_list, stoi(value)) : NULL;
     }
-    return NULL;
 }
 
 string articles_creation_handling(){
@@ -136,6 +135,48 @@ ArticleNode *search_article(){
     return search_element_in_article_list(MAIN_ARTICLE_LIST, selected_option, value);
 }
 
+Article set_article(Article article){
+    string current_x_sep = "\t\t\t\t\t\t";
+    std::map<std::string, string> pattern_dict = {
+        {"nombre",      "_"},
+        {"codigo",      CODE_NUMBER_REGEX},
+        {"cantidad" ,   INT_NUMBER_REGEX},
+        {"precio" ,     FLOAT_NUMBER_REGEX}
+    };
+    string value = "";
+    string setting_options[] = {
+        "Nombre",
+        "Codigo",
+        "Cantidad",
+        "Precio"
+    };
+    string error_log = "";
+    string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIÓN : Selecciona el parámetro de configuración ")-1]);
+    regex pattern;
+    pattern = pattern_dict[selected_option]; 
+    while (true){
+        system("clear");
+        cout << Y_SEPARATION << current_x_sep;
+        if (error_log != "")
+            cout << error_log << endl << current_x_sep;
+        cout << "Ingresa el nuevo valor para " + selected_option + " : ";
+        cin >> value;
+        if ((pattern_dict[selected_option] == "_") || (regex_search(value, pattern)))
+            break;
+        else
+            error_log = "Has ingresado un valor invalido para " + selected_option;
+    }
+    if (selected_option == "nombre")
+        article.name = value;
+    if (selected_option == "codigo")
+        article.code = value;
+    if (selected_option == "cantidad")
+        article.count = stoi(value);
+    if (selected_option == "precio")
+        article.price = stof(value);
+    return article;
+}
+
 
 bool delete_article_node(ArticlesList *main_article_list, ArticleNode *target_node){
     ArticleNode *current_node = main_article_list->head, *last_node = NULL;
@@ -154,6 +195,7 @@ bool delete_article_node(ArticlesList *main_article_list, ArticleNode *target_no
                     main_article_list->head = aux_node;
                 }
                 delete current_node;
+                MAIN_ARTICLE_LIST->articles_count--;
                 return true;
             }
             last_node = current_node;
