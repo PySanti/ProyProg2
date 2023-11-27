@@ -2,6 +2,7 @@
 #include "./articles_handling.h"
 #include "./clients_handling.h"
 #include "./sellers_handling.h"
+#include "./stock_handling.h"
 using namespace std;
 
 bool back_option_selected(string stringed_selected_option){
@@ -88,14 +89,22 @@ void handle_articles(){
 
 void handle_stock(){
     string stock_options[] = {
-    "Ver inventario",
-    "Agregar inventario",
-    "Modificar inventario",
-    "Eliminar inventario",
-    "Buscar inventario",
-    "Volver"
+        "Modificar inventario",
+        "Volver"
     };
+    string stock_file_reading_response;
     int selected_option = print_menu(stock_options, sizeof(stock_options) / sizeof(stock_options[0]), "Menu de Inventario");
+    string stringed_selected_option = to_lower(stock_options[selected_option-1]);
+    if (back_option_selected(stringed_selected_option))
+        return;
+    if (string_contains(stringed_selected_option    , "modificar")){
+        stock_file_reading_response = read_stock_from_file("inventario.txt", MAIN_ARTICLE_LIST, CODE_NUMBER_REGEX);
+        if (stock_file_reading_response == ""){
+            success_screen("Los cambios escritos en el archivo inventario.txt han surtido efecto en el inventario de la tienda!!");
+        } else {
+            success_screen(stock_file_reading_response);
+        }
+    }
     return;
 }
 
@@ -184,10 +193,10 @@ void handle_discounts(){
 void handle_sellers(){
     SellerNode *found_seller = NULL;
     std::map<std::string, string> pattern_dict = {
-        {"nombre",           "_"             },
-        {"fecha de ingreso", INT_NUMBER_REGEX},
-        {"cedula",           INT_NUMBER_REGEX},
-        {"comision" ,        FLOAT_NUMBER_REGEX},
+        {"nombre",                  "_"             },
+        {"fecha de ingreso",        INT_NUMBER_REGEX},
+        {"cedula",                  INT_NUMBER_REGEX},
+        {"comision" ,               FLOAT_NUMBER_REGEX},
     };
     string found_seller_name;
     string seller_options[] = {

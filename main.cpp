@@ -56,6 +56,8 @@ int main(int argc, char **argv){
                 break;
         } (selected_option);
     }
-
+    delete_articles_list();
+    delete_clients_list();
+    delete_sellers_list();
     return 0;
 }
