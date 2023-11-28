@@ -190,11 +190,21 @@ bool delete_article_node(ArticlesList *main_article_list, ArticleNode *target_no
         return false;
     }
 }
-bool delete_articles_list(){
-    string option;
-    string error_log = "";
+
+void delete_articles_list(){
     ArticleNode *current_node = MAIN_ARTICLE_LIST->head;
     ArticleNode *aux_node;
+    while (current_node != NULL){
+        aux_node = current_node->next;
+        current_node->next = NULL;
+        delete current_node;
+        MAIN_ARTICLE_LIST->head = aux_node;
+        current_node = MAIN_ARTICLE_LIST->head;
+    }
+}
+bool handle_delete_articles_list(){
+    string option;
+    string error_log = "";
     while (true){
         system("clear");
         cout << "\n\n\n\n\n\n\n";
@@ -211,13 +221,7 @@ bool delete_articles_list(){
     if (option == "n")
         return false;
     else{
-        while (current_node != NULL){
-            aux_node = current_node->next;
-            current_node->next = NULL;
-            delete current_node;
-            MAIN_ARTICLE_LIST->head = aux_node;
-            current_node = MAIN_ARTICLE_LIST->head;
-        }
+        delete_articles_list();
         return true;
     }
 }

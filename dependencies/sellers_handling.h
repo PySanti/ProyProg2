@@ -163,7 +163,6 @@ Seller set_seller(Seller seller, std::map<std::string, string> pattern_dict){
     return seller;
 }
 
-
 bool delete_seller_node(SellersList *main_seller_list, SellerNode *target_node){
     SellerNode *current_node = main_seller_list->head, *last_node = NULL;
     SellerNode *aux_node = NULL;
@@ -190,11 +189,20 @@ bool delete_seller_node(SellersList *main_seller_list, SellerNode *target_node){
         return false;
     }
 }
-bool delete_sellers_list(){
-    string option;
-    string error_log = "";
+void delete_sellers_list(){
     SellerNode *current_node = MAIN_SELLERS_LIST->head;
     SellerNode *aux_node;
+    while (current_node != NULL){
+        aux_node = current_node->next;
+        current_node->next = NULL;
+        delete current_node;
+        MAIN_SELLERS_LIST->head = aux_node;
+        current_node = MAIN_SELLERS_LIST->head;
+    }
+}
+bool handle_delete_sellers_list(){
+    string option;
+    string error_log = "";
     while (true){
         system("clear");
         cout << "\n\n\n\n\n\n\n";
@@ -211,13 +219,7 @@ bool delete_sellers_list(){
     if (option == "n")
         return false;
     else{
-        while (current_node != NULL){
-            aux_node = current_node->next;
-            current_node->next = NULL;
-            delete current_node;
-            MAIN_SELLERS_LIST->head = aux_node;
-            current_node = MAIN_SELLERS_LIST->head;
-        }
+        delete_sellers_list();
         return true;
     }
 }

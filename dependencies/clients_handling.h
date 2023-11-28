@@ -185,11 +185,20 @@ bool delete_client_node(ClientsList *main_client_list, ClientNode *target_node){
         return false;
     }
 }
-bool delete_clients_list(){
-    string option;
-    string error_log = "";
+void delete_clients_list(){
     ClientNode *current_node = MAIN_CLIENTS_LIST->head;
     ClientNode *aux_node;
+    while (current_node != NULL){
+        aux_node = current_node->next;
+        current_node->next = NULL;
+        delete current_node;
+        MAIN_CLIENTS_LIST->head = aux_node;
+        current_node = MAIN_CLIENTS_LIST->head;
+    }
+}
+bool handle_delete_clients_list(){
+    string option;
+    string error_log = "";
     while (true){
         system("clear");
         cout << "\n\n\n\n\n\n\n";
@@ -206,13 +215,7 @@ bool delete_clients_list(){
     if (option == "n")
         return false;
     else{
-        while (current_node != NULL){
-            aux_node = current_node->next;
-            current_node->next = NULL;
-            delete current_node;
-            MAIN_CLIENTS_LIST->head = aux_node;
-            current_node = MAIN_CLIENTS_LIST->head;
-        }
+        delete_clients_list();
         return true;
     }
 }

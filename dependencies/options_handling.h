@@ -79,7 +79,7 @@ void handle_articles(){
         if (MAIN_ARTICLE_LIST->head == NULL){
             success_screen("Aun no hay artículos en la lista !");
         } else {
-            if (delete_articles_list()){
+            if (handle_delete_articles_list()){
                 success_screen("Lista de artículos eliminada con éxito !");
             }
         }
@@ -170,7 +170,7 @@ void handle_clients(){
         if (MAIN_CLIENTS_LIST->head == NULL){
             success_screen("Aun no hay clientes en la lista !");
         } else {
-            if (delete_clients_list()){
+            if (handle_delete_clients_list()){
                 success_screen("Lista de clientes eliminada con éxito !");
             }
         }
@@ -255,7 +255,7 @@ void handle_sellers(){
         if (MAIN_SELLERS_LIST->head == NULL){
             success_screen("Aun no hay vendedores en la lista !");
         } else {
-            if (delete_sellers_list()){
+            if (handle_delete_sellers_list()){
                 success_screen("Lista de vendedores eliminada con éxito !");
             }
         }
