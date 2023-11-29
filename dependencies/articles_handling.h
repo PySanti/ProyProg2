@@ -1,6 +1,7 @@
 #include <iostream>
 #include "structs.h"
 #include <regex>
+#include <fstream>
 
 using namespace std;
 
@@ -155,7 +156,7 @@ Article set_article(Article article, std::map<std::string, string> pattern_dict)
     if (selected_option == "nombre")
         article.name = value;
     if (selected_option == "codigo")
-        article.code = value;
+        article.code = uppercase(value);
     if (selected_option == "cantidad")
         article.count = stoi(value);
     if (selected_option == "precio")
@@ -223,5 +224,66 @@ bool handle_delete_articles_list(){
     else{
         delete_articles_list();
         return true;
+    }
+}
+
+string read_articles_from_file(string filename, map<std::string, string> pattern_dict, ArticlesList *main_article_list){
+    std::ifstream file;
+    string current_line;
+    int current_atribute = 0;   
+    Article current_article;
+    regex current_regex;
+    file.open(filename);
+    if (!file.is_open()){
+        return "Error, el archivo "+filename+" no ha podido ser abierto !";
+    } else {
+        while (file){
+            getline(file, current_line);
+            if (current_atribute == 0){
+                current_regex = pattern_dict["cantidad"];
+                if (pattern_dict["cantidad"] == "_" || regex_search(current_line, current_regex)){
+                    current_article.count = stoi(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para la cantidad.";
+                }
+            } else if (current_atribute == 1){
+                current_regex = pattern_dict["codigo"];
+                if (pattern_dict["codigo"] == "_" || regex_search(current_line, current_regex)){
+                    current_article.code = uppercase(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para el codigo.";
+                }
+            } else if (current_atribute == 2){
+                current_regex = pattern_dict["nombre"];
+                if (pattern_dict["nombre"] == "_" || regex_search(current_line, current_regex)){
+                    current_article.name = uppercase(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para el nombre.";
+                }
+            } else if (current_atribute == 3){
+                current_regex = pattern_dict["precio"];
+                if (pattern_dict["precio"] == "_" || regex_search(current_line, current_regex)){
+                    current_article.price = stof(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para precio.";
+                }
+            } else{ 
+                if (!search_element_in_article_list(main_article_list, "codigo", to_lower(current_article.code))){
+                    append_article_to_article_list(main_article_list, create_article(current_article.code, current_article.count, current_article.name, current_article.price));
+                    current_atribute = -1;
+                } else {
+                    return "Error, el articulo con codigo "+ current_article.code + " esta tratando de ser agregado 2 veces.";
+                }
+            }
+            current_atribute++;
+        }
+        return "";
+    }
+    file.close();
+}
+void handle_read_articles_from_file(string filename, map<std::string, string> pattern_dict, ArticlesList *main_article_list){
+    string articles_reading_response = read_articles_from_file(filename, pattern_dict, main_article_list); 
+    if (articles_reading_response != ""){
+        success_screen(articles_reading_response);
     }
 }

@@ -103,7 +103,7 @@ string clients_creation_handling(std::map<std::string, string> pattern_dict){
         success_screen("Error, ya existe un cliente con el nombre indicado (" + pattern_dict["nombre"] + ")");
         return "";
     } else {
-        new_client = create_client(pattern_dict["nombre"], pattern_dict["direccion"], pattern_dict["numero telefonico"]);
+        new_client = create_client(uppercase(pattern_dict["nombre"]), uppercase(pattern_dict["direccion"]), pattern_dict["numero telefonico"]);
         append_client_to_client_list(MAIN_CLIENTS_LIST, new_client);
         return pattern_dict["nombre"];
     }
@@ -150,9 +150,9 @@ Client set_client(Client client, std::map<std::string, string> pattern_dict){
             error_log = "Has ingresado un valor invalido para " + selected_option;
     }
     if (selected_option == "nombre")
-        client.name = value;
+        client.name = uppercase(value);
     if (selected_option == "direccion")
-        client.direction = value;
+        client.direction = uppercase(value);
     if (selected_option == "numero telefonico")
         client.phone_number = value;
     return client;
@@ -217,5 +217,55 @@ bool handle_delete_clients_list(){
     else{
         delete_clients_list();
         return true;
+    }
+}
+
+string read_clients_from_file(string filename, map<std::string, string> pattern_dict, ClientsList *main_clients_list){
+    std::ifstream file;
+    string current_line;
+    int current_atribute = 0;   
+    Client current_client;
+    regex current_regex;
+    file.open(filename);
+    if (!file.is_open()){
+        return "Error, el archivo "+ filename+ " no ha podido ser abierto !";
+    } else {
+        while (file){
+            getline(file, current_line);
+            if (current_atribute == 0){
+                current_regex = pattern_dict["direccion"];
+                if (pattern_dict["direccion"] == "_" || regex_search(current_line, current_regex)){
+                    current_client.direction = uppercase(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para la dirección.";
+                }
+            } else if (current_atribute == 1){
+                current_regex = pattern_dict["nombre"];
+                if (pattern_dict["nombre"] == "_" || regex_search(current_line, current_regex)){
+                    current_client.name = uppercase(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para el nombre.";
+                }
+            } else if (current_atribute == 2){
+                current_regex = pattern_dict["numero telefonico"];
+                if (pattern_dict["numero telefonico"] == "_" || regex_search(current_line, current_regex)){
+                    current_client.phone_number = current_line;
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para el numero telefonico.";
+                }
+            } else{ 
+                append_client_to_client_list(main_clients_list, create_client(current_client.name, current_client.direction, current_client.phone_number));
+                current_atribute = -1;
+            }
+            current_atribute++;
+        }
+        return "";
+    }
+    file.close();
+}
+void handle_read_clients_from_file(string filename, map<std::string, string> pattern_dict, ClientsList *main_clients_list){
+    string clients_reading_response = read_clients_from_file(filename, pattern_dict,main_clients_list); 
+    if (clients_reading_response != ""){
+        success_screen(clients_reading_response);
     }
 }

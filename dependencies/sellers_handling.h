@@ -107,7 +107,7 @@ string sellers_creation_handling(std::map<std::string, string> pattern_dict){
         success_screen("Error, ese vendedor ya ha sido agregado a la base de datos (" + pattern_dict["cedula"] +")");
         return "";
     } else {
-        new_seller = create_seller(pattern_dict["nombre"], pattern_dict["fecha de ingreso"], stof(pattern_dict["comision"]), stoi(pattern_dict["cedula"]));
+        new_seller = create_seller(uppercase(pattern_dict["nombre"]), pattern_dict["fecha de ingreso"], stof(pattern_dict["comision"]), stoi(pattern_dict["cedula"]));
         append_seller_to_sellers_list(MAIN_SELLERS_LIST, new_seller);
         return pattern_dict["nombre"];
     }
@@ -155,7 +155,7 @@ Seller set_seller(Seller seller, std::map<std::string, string> pattern_dict){
             error_log = "Has ingresado un valor invalido para " + selected_option;
     }
     if (selected_option == "nombre")
-        seller.name = value;
+        seller.name = uppercase(value);
     if (selected_option == "comision")
         seller.comission = stof(value);
     if (selected_option == "fecha de ingreso")
@@ -221,5 +221,64 @@ bool handle_delete_sellers_list(){
     else{
         delete_sellers_list();
         return true;
+    }
+}
+
+string read_sellers_from_file(string filename, map<std::string, string> pattern_dict, SellersList *main_sellers_list){
+    std::ifstream file;
+    string current_line;
+    int current_atribute = 0;   
+    Seller current_seller;
+    regex current_regex;
+    file.open(filename);
+    if (!file.is_open()){
+        return "Error, el archivo " + filename + " no ha podido ser abierto !";
+    } else {
+        while (file){
+            getline(file, current_line);
+            cout << current_line << " " << current_atribute << endl;
+            pause();
+            if (current_atribute == 0){
+                current_regex = pattern_dict["cedula"];
+                if (pattern_dict["cedula"] == "_" || regex_search(current_line, current_regex)){
+                    current_seller.cedula = stoi(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para la cedula.";
+                }
+            } else if (current_atribute == 1){
+                current_regex = pattern_dict["nombre"];
+                if (pattern_dict["nombre"] == "_" || regex_search(current_line, current_regex)){
+                    current_seller.name = uppercase(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para el nombre.";
+                }
+            } else if (current_atribute == 2){
+                current_regex = pattern_dict["fecha de ingreso"];
+                if (pattern_dict["fecha de ingreso"] == "_" || regex_search(current_line, current_regex)){
+                    current_seller.entry_date = current_line;
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para la fecha de ingreso.";
+                }
+            }   else if (current_atribute == 3){
+                current_regex = pattern_dict["comision"];
+                if (pattern_dict["comision"] == "_" || regex_search(current_line, current_regex)){
+                    current_seller.comission = stof(current_line);
+                } else {
+                    return "Error, el valor " + current_line + " no es valido para la comision.";
+                }
+            }  else{ 
+                append_seller_to_sellers_list(main_sellers_list, create_seller(current_seller.name, current_seller.entry_date, current_seller.comission, current_seller.cedula));
+                current_atribute = -1;
+            }
+            current_atribute++;
+        }
+        return "";
+    }
+    file.close();
+}
+void handle_read_sellers_from_file(string filename, map<std::string, string> pattern_dict, SellersList *main_sellers_list){
+    string sellers_reading_response = read_sellers_from_file(filename, pattern_dict,main_sellers_list); 
+    if (sellers_reading_response != ""){
+        success_screen(sellers_reading_response);
     }
 }

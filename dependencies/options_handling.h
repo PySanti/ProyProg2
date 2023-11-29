@@ -14,14 +14,9 @@ bool string_contains(string str, string target){
 
 }
 
-void handle_articles(){
+void handle_articles(std::map<std::string, string> pattern_dict){
     ArticleNode *found_article = NULL;
-    std::map<std::string, string> pattern_dict = {
-        {"nombre",      "_"             },
-        {"codigo",      CODE_NUMBER_REGEX},
-        {"cantidad" ,   INT_NUMBER_REGEX},
-        {"precio" ,     FLOAT_NUMBER_REGEX}
-    };
+
     string found_article_code;
     string article_options[] = {
         "Ver artículos",
@@ -108,7 +103,7 @@ void handle_stock(){
     return;
 }
 
-void handle_clients(){
+void handle_clients(std::map<std::string, string> pattern_dict){
     string client_options[] = {
         "Ver clientes",
         "Agregar cliente",
@@ -120,11 +115,6 @@ void handle_clients(){
     };
     ClientNode *found_client;
     string found_client_name;
-    std::map<std::string, string> pattern_dict = {
-        {"nombre",               "_"},
-        {"direccion",            "_"},
-        {"numero telefonico" ,   PHONE_NUMBER_REGEX},
-    };
     int selected_option = print_menu(client_options,sizeof(client_options) / sizeof(client_options[0]) , "Menu de Clientes");
     string stringed_selected_option = to_lower(client_options[selected_option-1]);
     if (back_option_selected(stringed_selected_option))
@@ -190,14 +180,9 @@ void handle_discounts(){
 }
 
 
-void handle_sellers(){
+void handle_sellers(std::map<std::string, string> pattern_dict){
     SellerNode *found_seller = NULL;
-    std::map<std::string, string> pattern_dict = {
-        {"nombre",                  "_"             },
-        {"fecha de ingreso",        INT_NUMBER_REGEX},
-        {"cedula",                  INT_NUMBER_REGEX},
-        {"comision" ,               FLOAT_NUMBER_REGEX},
-    };
+
     string found_seller_name;
     string seller_options[] = {
         "Ver vendedores",
