@@ -236,8 +236,9 @@ string read_sellers_from_file(string filename, map<std::string, string> pattern_
     } else {
         while (file){
             getline(file, current_line);
-            cout << current_line << " " << current_atribute << endl;
-            pause();
+            if (current_line.length() == 0 && current_atribute == 0){
+                return "";
+            }
             if (current_atribute == 0){
                 current_regex = pattern_dict["cedula"];
                 if (pattern_dict["cedula"] == "_" || regex_search(current_line, current_regex)){
@@ -281,4 +282,22 @@ void handle_read_sellers_from_file(string filename, map<std::string, string> pat
     if (sellers_reading_response != ""){
         success_screen(sellers_reading_response);
     }
+}
+
+void write_sellers_list_in_file(string filename, SellersList *main_sellers_list){
+    SellerNode *current_node = main_sellers_list->head;
+    std::ofstream file;
+    file.open(filename);
+    if (main_sellers_list->head == NULL)
+        file << "";
+    while (current_node != NULL){
+        file << current_node->seller.cedula << endl;
+        file << current_node->seller.name << endl;
+        file << current_node->seller.entry_date << endl;
+        file << current_node->seller.comission << endl;
+        if (current_node->next)
+            file << "~" << endl;
+        current_node = current_node->next;
+    }
+    file.close();
 }

@@ -239,6 +239,9 @@ string read_articles_from_file(string filename, map<std::string, string> pattern
     } else {
         while (file){
             getline(file, current_line);
+            if (current_line.length() == 0 && current_atribute == 0){
+                return "";
+            }
             if (current_atribute == 0){
                 current_regex = pattern_dict["cantidad"];
                 if (pattern_dict["cantidad"] == "_" || regex_search(current_line, current_regex)){
@@ -286,4 +289,22 @@ void handle_read_articles_from_file(string filename, map<std::string, string> pa
     if (articles_reading_response != ""){
         success_screen(articles_reading_response);
     }
+}
+
+void write_articles_list_in_file(string filename, ArticlesList *main_article_list){
+    ArticleNode *current_node = main_article_list->head;
+    std::ofstream file;
+    file.open(filename);
+    if (main_article_list->head == NULL)
+        file << "";
+    while (current_node != NULL){
+        file << current_node->article.count << endl;
+        file << current_node->article.code << endl;
+        file << current_node->article.name << endl;
+        file << current_node->article.price << endl;
+        if (current_node->next)
+            file << "~" << endl;
+        current_node = current_node->next;
+    }
+    file.close();
 }

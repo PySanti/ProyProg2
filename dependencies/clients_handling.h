@@ -232,6 +232,9 @@ string read_clients_from_file(string filename, map<std::string, string> pattern_
     } else {
         while (file){
             getline(file, current_line);
+            if (current_line.length() == 0 && current_atribute == 0){
+                return "";
+            }
             if (current_atribute == 0){
                 current_regex = pattern_dict["direccion"];
                 if (pattern_dict["direccion"] == "_" || regex_search(current_line, current_regex)){
@@ -268,4 +271,21 @@ void handle_read_clients_from_file(string filename, map<std::string, string> pat
     if (clients_reading_response != ""){
         success_screen(clients_reading_response);
     }
+}
+
+void write_clients_list_in_file(string filename, ClientsList *main_clients_list){
+    ClientNode *current_node = main_clients_list->head;
+    std::ofstream file;
+    file.open(filename);
+    if (main_clients_list->head == NULL)
+        file << "";
+    while (current_node != NULL){
+        file << current_node->client.direction << endl;
+        file << current_node->client.name << endl;
+        file << current_node->client.phone_number << endl;
+        if (current_node->next)
+            file << "~" << endl;
+        current_node = current_node->next;
+    }
+    file.close();
 }

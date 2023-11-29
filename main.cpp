@@ -74,8 +74,13 @@ int main(int argc, char **argv){
                 break;
         } (selected_option);
     }
+    write_sellers_list_in_file("data/sellers.txt", MAIN_SELLERS_LIST);
+    write_clients_list_in_file("data/clients.txt", MAIN_CLIENTS_LIST);
+    write_articles_list_in_file("data/articles.txt", MAIN_ARTICLE_LIST);
+
     delete_articles_list();
     delete_clients_list();
     delete_sellers_list();
+
     return 0;
 }
