@@ -303,7 +303,7 @@ void write_articles_list_in_file(string filename, ArticlesList *main_article_lis
         file << current_node->article.name << endl;
         file << current_node->article.price << endl;
         if (current_node->next)
-            file << "~" << endl;
+            file << "~" << endl;    
         current_node = current_node->next;
     }
     file.close();

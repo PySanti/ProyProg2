@@ -3,6 +3,7 @@
 #include "./clients_handling.h"
 #include "./sellers_handling.h"
 #include "./stock_handling.h"
+#include "./invoice_handling.h"
 using namespace std;
 
 bool back_option_selected(string stringed_selected_option){
@@ -271,10 +272,18 @@ void handle_bones(){
 
 void handle_invoices(){
     string invoice_options[] = {
-        "-",
+        "Generar factura",
         "Volver"
     };
     int selected_option = print_menu(invoice_options, sizeof(invoice_options) / sizeof(invoice_options[0]), "Menu de facturas");
+    string stringed_selected_option = to_lower(invoice_options[selected_option-1]);
+
+    if (back_option_selected(stringed_selected_option))
+        return;
+    if (string_contains(stringed_selected_option, "generar")){
+        invoice_generation_handling();
+    } 
+
     return;
 }
 
