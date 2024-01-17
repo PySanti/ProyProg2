@@ -31,7 +31,7 @@ std::map<std::string, string> clients_pattern_dict = {
 };
 std::map<std::string, string> sellers_pattern_dict = {
     {"nombre",                  "_"             },
-    {"fecha de ingreso",        INT_NUMBER_REGEX},
+    {"fecha de ingreso",        DATE_REGEX},
     {"cedula",                  INT_NUMBER_REGEX},
     {"comision" ,               FLOAT_NUMBER_REGEX},
 };
