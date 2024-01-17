@@ -38,12 +38,16 @@ bool char_is_num(char c){
  *  true en caso contrario
  * */
 bool string_is_num(std::string string){
-    for (char c : string){
-        if (!(char_is_num(c))){
-            return false;
+    if (string.length() == 0){
+        return false;
+    } else {
+        for (char c : string){
+            if (!(char_is_num(c))){
+                return false;
+            }
         }
+        return true;
     }
-    return true;
 }
 
 
@@ -148,3 +152,7 @@ void success_screen(string msg){
 }
 
 
+bool string_contains(string str, string target){
+    return str.find(target) != string::npos;
+
+}

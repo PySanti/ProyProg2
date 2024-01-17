@@ -10,10 +10,7 @@ bool back_option_selected(string stringed_selected_option){
     return (stringed_selected_option == "volver") ? true : false;
 }
 
-bool string_contains(string str, string target){
-    return str.find(target) != string::npos;
 
-}
 
 void handle_articles(std::map<std::string, string> pattern_dict){
     ArticleNode *found_article = NULL;

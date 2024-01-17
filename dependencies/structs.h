@@ -17,6 +17,11 @@ typedef struct Client {
     string phone_number;
 } Client;
 
+typedef struct Renglon {
+    string article_code;
+    int article_ammount;
+} Renglon;
+
 typedef struct Seller {
     int primary_key;
     int cedula;
@@ -29,7 +34,8 @@ typedef struct Invoice {
     string id;
     Client client_data;
     Seller seller_data;
-    Article renglones[10];
+    Renglon *renglones;
+    int products_count;
     float sub_total;
     float discount;
     float total;

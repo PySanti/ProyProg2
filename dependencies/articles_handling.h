@@ -308,3 +308,11 @@ void write_articles_list_in_file(string filename, ArticlesList *main_article_lis
     }
     file.close();
 }
+
+void generate_articles_codes_array(string arr[]){
+    ArticleNode *current_node = MAIN_ARTICLE_LIST->head;
+    for (int i = 0; i < MAIN_ARTICLE_LIST->articles_count; i++){
+        arr[i] = current_node->article.code;
+        current_node = current_node->next;
+    }
+}
