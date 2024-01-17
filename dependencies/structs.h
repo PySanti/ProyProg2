@@ -26,7 +26,7 @@ typedef struct Seller {
 } Seller;
 
 typedef struct Invoice {
-    int id;
+    string id;
     Client client_data;
     Seller seller_data;
     Article renglones[10];

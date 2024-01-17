@@ -302,16 +302,10 @@ void write_sellers_list_in_file(string filename, SellersList *main_sellers_list)
     file.close();
 }
 
-string *generate_sellers_names_array(){
+void generate_sellers_names_array(string arr[]){
     SellerNode *current_node = MAIN_SELLERS_LIST->head;
-    string sellers_names[MAIN_SELLERS_LIST->sellers_count];
-    if (current_node == NULL){
-        return NULL;
-    } else {
-        for (int i = 0; i < MAIN_SELLERS_LIST->sellers_count; i++){
-            sellers_names[i] = current_node->seller.name;
-            current_node = current_node->next;
-        }
-        return sellers_names;
+    for (int i = 0; i < MAIN_SELLERS_LIST->sellers_count; i++){
+        arr[i] = current_node->seller.name;
+        current_node = current_node->next;
     }
 }

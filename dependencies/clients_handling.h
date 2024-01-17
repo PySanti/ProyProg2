@@ -289,3 +289,11 @@ void write_clients_list_in_file(string filename, ClientsList *main_clients_list)
     }
     file.close();
 }
+
+void generate_clients_names_array(string arr[]){
+    ClientNode *current_node = MAIN_CLIENTS_LIST->head;
+    for (int i = 0; i < MAIN_CLIENTS_LIST->clients_count; i++){
+        arr[i] = current_node->client.name;
+        current_node = current_node->next;
+    }
+}

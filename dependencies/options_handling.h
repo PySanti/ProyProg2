@@ -277,11 +277,13 @@ void handle_invoices(){
     };
     int selected_option = print_menu(invoice_options, sizeof(invoice_options) / sizeof(invoice_options[0]), "Menu de facturas");
     string stringed_selected_option = to_lower(invoice_options[selected_option-1]);
+    string invoice_generation_handling_response;
 
     if (back_option_selected(stringed_selected_option))
         return;
     if (string_contains(stringed_selected_option, "generar")){
-        invoice_generation_handling();
+        invoice_generation_handling_response = invoice_generation_handling();
+        success_screen(invoice_generation_handling_response);
     } 
 
     return;
