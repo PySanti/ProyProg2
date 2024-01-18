@@ -43,8 +43,8 @@ void append_client_to_client_list(ClientsList *client_list, Client client){
 void show_client(Client client){
     cout << X_SEPARATION << "\t\t[" << client.primary_key << "]\n" << endl;
     cout << X_SEPARATION << "Nombre                 : " << client.name << endl;
-    cout << X_SEPARATION << "Direccion              : " << client.direction << endl;
-    cout << X_SEPARATION << "Numero telefonico      : " << client.phone_number  << endl;
+    cout << X_SEPARATION << "Dirección              : " << client.direction << endl;
+    cout << X_SEPARATION << "Numero telefónico      : " << client.phone_number  << endl;
 }
 
 void show_clients_list(ClientsList *client_list){
@@ -134,7 +134,7 @@ Client set_client(Client client, std::map<std::string, string> pattern_dict){
         "Numero telefonico",
     };
     string error_log = "";
-    string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIoN : Selecciona el parametro de configuracion ")-1]);
+    string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIÓN : Selecciona el parametro de configuración ")-1]);
     regex pattern;
     pattern = pattern_dict[selected_option]; 
     while (true){
@@ -240,7 +240,7 @@ string read_clients_from_file(string filename, map<std::string, string> pattern_
                 if (pattern_dict["direccion"] == "_" || regex_search(current_line, current_regex)){
                     current_client.direction = uppercase(current_line);
                 } else {
-                    return "Error, el valor " + current_line + " no es valido para la direccion.";
+                    return "Error, el valor " + current_line + " no es valido para la dirección.";
                 }
             } else if (current_atribute == 1){
                 current_regex = pattern_dict["nombre"];

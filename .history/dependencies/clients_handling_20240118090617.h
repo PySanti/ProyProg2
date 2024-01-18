@@ -204,7 +204,7 @@ bool handle_delete_clients_list(){
         cout << "\n\n\n\n\n\n\n";
         if (error_log != "")
             cout << "\t\t\t" << error_log << endl;
-        cout << "\t\t\tEstas segur@ de que deseas eliminar la lista de articulos en su totalidad ? (s/n) : ";
+        cout << "\t\t\tEstas segur@ de que deseas eliminar la lista de artículos en su totalidad ? (s/n) : ";
         getline(cin, option);
         option = to_lower(option);
         if (option != "s" && option != "n")

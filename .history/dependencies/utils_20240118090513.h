@@ -100,7 +100,7 @@ string capitalize(string target){
  * Recibira un map con claves como los campos del formulario y
  * como patron, la expresion regular que deben cumplir.
  * 
- * En caso de que el campo no tenga ninguna restriccion,
+ * En caso de que el campo no tenga ninguna restricción,
  * asignar '-' como valor
 */
 map<string, string> validate_form(map<string, string> patterns_dict){

@@ -139,7 +139,7 @@ Seller set_seller(Seller seller, std::map<std::string, string> pattern_dict){
         "Comision",
     };
     string error_log = "";
-    string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIoN : Selecciona el parametro de configuracion ")-1]);
+    string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIÓN : Selecciona el parametro de configuración ")-1]);
     regex pattern;
     pattern = pattern_dict[selected_option]; 
     while (true){

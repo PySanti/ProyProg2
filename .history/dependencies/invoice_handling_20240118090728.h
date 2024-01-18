@@ -174,7 +174,7 @@ string invoice_generation_handling(){
         selected_seller = sellers_names[print_menu(sellers_names, MAIN_SELLERS_LIST->sellers_count, "Selecciona al vendedor")-1];
         selected_client = clients_names[print_menu(clients_names, MAIN_CLIENTS_LIST->clients_count, "Selecciona al cliente")-1];
         while (1){
-            selected_article_code = articles_codes[print_menu(articles_codes, MAIN_ARTICLE_LIST->articles_count+1, modify_title_with_renglones_info(renglones_list, current_renglon_number, "Menu de renglones, selecciona el codigo del articulo a comprar\n"))-1];
+            selected_article_code = articles_codes[print_menu(articles_codes, MAIN_ARTICLE_LIST->articles_count+1, modify_title_with_renglones_info(renglones_list, current_renglon_number, "Menu de renglones, selecciona el código del articulo a comprar\n"))-1];
             if (string_contains(selected_article_code, "Continuar")){
                 if (current_renglon_number == 0){
                     return "No se han agregado renglones a la factura, abortando operacion !";

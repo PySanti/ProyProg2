@@ -7,7 +7,7 @@
 using namespace std;
 
 string main_options[] = {
-    "Articulos",
+    "Artículos",
     "Inventario",
     "Clientes",
     "Vendedores",
