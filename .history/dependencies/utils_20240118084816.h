@@ -5,9 +5,6 @@
 
 
 using namespace std;
-void cls(){
-    system("cls");
-}
 void pause(){
     cin.get();
 }

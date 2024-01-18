@@ -101,6 +101,7 @@ string generate_invoice_code(){
         num = num == 1 ? (rand() % (26)) + 65 : (rand() % (10)) + 48;
         final_code  = final_code + (char) num;
     }
+    cout << final_code << endl;
     return final_code;
 }
 
@@ -243,6 +244,7 @@ string handle_read_invoices_from_file(string filename){
     } else {
         while (file){
             getline(file, current_line);
+            cout << current_line << endl;
             if (current_line.length() == 0 && current_atribute == 0){
                 return "";
             }

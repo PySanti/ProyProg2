@@ -204,7 +204,7 @@ bool handle_delete_sellers_list(){
     string option;
     string error_log = "";
     while (true){
-        cls();;
+        system("clear");
         cout << "\n\n\n\n\n\n\n";
         if (error_log != "")
             cout << "\t\t\t" << error_log << endl;

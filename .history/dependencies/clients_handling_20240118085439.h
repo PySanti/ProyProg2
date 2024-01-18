@@ -138,7 +138,7 @@ Client set_client(Client client, std::map<std::string, string> pattern_dict){
     regex pattern;
     pattern = pattern_dict[selected_option]; 
     while (true){
-        cls();
+        cls();;
         cout << Y_SEPARATION << current_x_sep;
         if (error_log != "")
             cout << error_log << endl << current_x_sep;
@@ -200,7 +200,7 @@ bool handle_delete_clients_list(){
     string option;
     string error_log = "";
     while (true){
-        cls();;
+        system("clear");
         cout << "\n\n\n\n\n\n\n";
         if (error_log != "")
             cout << "\t\t\t" << error_log << endl;

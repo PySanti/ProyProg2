@@ -110,7 +110,7 @@ map<string, string> validate_form(map<string, string> patterns_dict){
     string current_value;
     string error_log;
     while (!validation_finished){
-        cls();;
+        system("clear");
         for (const auto& par : patterns_dict) {
             const string& field = par.first;
             const string& pattern = par.second;
@@ -147,7 +147,7 @@ map<string, string> validate_form(map<string, string> patterns_dict){
 
 
 void success_screen(string msg){
-    cls();;
+    system("clear");
     cout << Y_SEPARATION << X_SEPARATION << uppercase(msg);
     cout << Y_SEPARATION;
     cout << X_SEPARATION << "Pulse enter para continuar ... ";

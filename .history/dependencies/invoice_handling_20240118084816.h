@@ -69,7 +69,7 @@ float commission_calculator(string seller_name){
 
 
 void show_invoice_list(){
-    cls();;
+    system("clear");
     InvoiceNode *current_node = MAIN_INVOICE_LIST->head;
     Invoice current_invoice;
     while (current_node != NULL){
@@ -101,13 +101,14 @@ string generate_invoice_code(){
         num = num == 1 ? (rand() % (26)) + 65 : (rand() % (10)) + 48;
         final_code  = final_code + (char) num;
     }
+    cout << final_code << endl;
     return final_code;
 }
 
 string get_product_ammount(string product_code){
     string product_ammount;
     while (1){
-        cls();;
+        system("clear");
         cout << Y_SEPARATION << X_SEPARATION << "Error, cantidad de unidades invalida !" << endl;
         cout  << X_SEPARATION << "Ingresa la cantidad de unidades del producto " << product_code << " que se venderán : ";
         getline(cin, product_ammount);
@@ -243,6 +244,7 @@ string handle_read_invoices_from_file(string filename){
     } else {
         while (file){
             getline(file, current_line);
+            cout << current_line << endl;
             if (current_line.length() == 0 && current_atribute == 0){
                 return "";
             }

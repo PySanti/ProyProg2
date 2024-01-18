@@ -75,7 +75,7 @@ int print_menu(string options_list[], int options_count, string menu_title){
     int checked_option;
     string option;
     while (1){
-        cls();
+        cls();;
         print_menu_title(menu_title);
         print_menu_options(options_list, max_option);
         option = print_menu_input(failed);

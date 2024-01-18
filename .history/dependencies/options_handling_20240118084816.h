@@ -44,7 +44,7 @@ void handle_articles(std::map<std::string, string> pattern_dict){
             if (found_article){
                 found_article_code = found_article->article.code;
                 if (string_contains(stringed_selected_option, "buscar")){
-                    cls();;
+                    system("clear");
                     cout << Y_SEPARATION << X_SEPARATION << "Articulo conseguido !!!" << endl;
                     show_article(found_article->article);
                     pause();
@@ -130,7 +130,7 @@ void handle_clients(std::map<std::string, string> pattern_dict){
             if (found_client){
                 found_client_name = found_client->client.name;
                 if (string_contains(stringed_selected_option, "buscar")){
-                    cls();;
+                    system("clear");
                     cout << Y_SEPARATION << X_SEPARATION << "Cliente conseguido !!!" << endl;
                     show_client(found_client->client);
                     pause();
@@ -210,7 +210,7 @@ void handle_sellers(std::map<std::string, string> pattern_dict){
             if (found_seller){
                 found_seller_name = found_seller->seller.name;
                 if (string_contains(stringed_selected_option, "buscar")){
-                    cls();;
+                    system("clear");
                     cout << Y_SEPARATION << X_SEPARATION << "Vendedor conseguido !!!" << endl;
                     show_seller(found_seller->seller);
                     pause();

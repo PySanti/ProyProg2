@@ -52,7 +52,7 @@ void show_article(Article article){
 
 void show_articles_list(ArticlesList *article_list){
     ArticleNode *current_node = article_list->head;
-    cls();
+    system("clear");
     while (current_node != NULL){
         show_article(current_node->article);
         current_node = current_node->next;
@@ -142,7 +142,7 @@ Article set_article(Article article, std::map<std::string, string> pattern_dict)
     string error_log = "";
     string selected_option = to_lower(setting_options[print_menu(setting_options, sizeof(setting_options) / sizeof(setting_options[0]), "MENU DE CONFIGURACIÓN : Selecciona el parámetro de configuración ")-1]);
     while (true){
-        cls();;
+        system("clear");
         cout << Y_SEPARATION << current_x_sep;
         if (error_log != "")
             cout << error_log << endl << current_x_sep;
@@ -207,7 +207,7 @@ bool handle_delete_articles_list(){
     string option;
     string error_log = "";
     while (true){
-        cls();;
+        system("clear");
         cout << "\n\n\n\n\n\n\n";
         if (error_log != "")
             cout << "\t\t\t" << error_log << endl;

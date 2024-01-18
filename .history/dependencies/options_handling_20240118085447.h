@@ -210,7 +210,7 @@ void handle_sellers(std::map<std::string, string> pattern_dict){
             if (found_seller){
                 found_seller_name = found_seller->seller.name;
                 if (string_contains(stringed_selected_option, "buscar")){
-                    cls();;
+                    system("clear");
                     cout << Y_SEPARATION << X_SEPARATION << "Vendedor conseguido !!!" << endl;
                     show_seller(found_seller->seller);
                     pause();

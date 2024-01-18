@@ -52,7 +52,7 @@ void show_seller(Seller seller){
 
 void show_sellers_list(SellersList *seller_list){
     SellerNode *current_node = seller_list->head;
-    cls();;
+    system("clear");
     while (current_node != NULL){
         show_seller(current_node->seller);
         current_node = current_node->next;
@@ -143,7 +143,7 @@ Seller set_seller(Seller seller, std::map<std::string, string> pattern_dict){
     regex pattern;
     pattern = pattern_dict[selected_option]; 
     while (true){
-        cls();;
+        system("clear");
         cout << Y_SEPARATION << current_x_sep;
         if (error_log != "")
             cout << error_log << endl << current_x_sep;
@@ -204,7 +204,7 @@ bool handle_delete_sellers_list(){
     string option;
     string error_log = "";
     while (true){
-        cls();;
+        system("clear");
         cout << "\n\n\n\n\n\n\n";
         if (error_log != "")
             cout << "\t\t\t" << error_log << endl;
