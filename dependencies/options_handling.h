@@ -249,27 +249,12 @@ void handle_sellers(std::map<std::string, string> pattern_dict){
 
 
 
-void handle_comissions(){
-    string comission_options[] = {
-        "-",
-        "Volver",
-    };
-    int selected_option = print_menu(comission_options, sizeof(comission_options) / sizeof(comission_options[0]), "Menu de comisiones");
-    return;
-}
 
-void handle_bones(){
-    string bones_options[] = {
-        "-",
-        "Volver"
-    };
-    int selected_option = print_menu(bones_options, sizeof(bones_options) / sizeof(bones_options[0]), "Menu de Bonos");
-    return;
-}
 
 void handle_invoices(){
     string invoice_options[] = {
         "Generar factura",
+        "Ver facturas",
         "Volver"
     };
     int selected_option = print_menu(invoice_options, sizeof(invoice_options) / sizeof(invoice_options[0]), "Menu de facturas");
@@ -281,7 +266,13 @@ void handle_invoices(){
     if (string_contains(stringed_selected_option, "generar")){
         invoice_generation_handling_response = invoice_generation_handling();
         success_screen(invoice_generation_handling_response);
-    } 
+    }  else if (string_contains(stringed_selected_option, "ver")){
+        if (MAIN_INVOICE_LIST->invoice_count == 0){
+            success_screen("Aun no hay facturas en la lista");
+        } else {
+            show_invoice_list();
+        }
+    }
 
     return;
 }

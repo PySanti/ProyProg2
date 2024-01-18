@@ -39,4 +39,5 @@ typedef struct Invoice {
     float sub_total;
     float discount;
     float total;
+    float comission;
 } Invoice;

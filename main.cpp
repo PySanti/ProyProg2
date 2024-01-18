@@ -10,10 +10,8 @@ string main_options[] = {
     "Artículos",
     "Inventario",
     "Clientes",
-    "Descuentos",
     "Vendedores",
     "Comisiones por ventas",
-    "Bonos",
     "Facturas",
     "Salir"
 };
@@ -41,6 +39,7 @@ int main(int argc, char **argv){
     handle_read_articles_from_file("data/articles.txt", articles_pattern_dict, MAIN_ARTICLE_LIST);
     handle_read_clients_from_file("data/clients.txt", clients_pattern_dict, MAIN_CLIENTS_LIST);
     handle_read_sellers_from_file("data/sellers.txt", sellers_pattern_dict, MAIN_SELLERS_LIST);
+    handle_read_invoices_from_file("data/invoices.txt");
     while (!exit){
         int selected_option = print_menu(main_options, sizeof(main_options) / sizeof(main_options[0]), "Menu Inicial");
         switch (selected_option)
@@ -61,15 +60,9 @@ int main(int argc, char **argv){
                 handle_sellers(sellers_pattern_dict);
                 break;
             case 6:
-                handle_comissions();
-                break;
-            case 7:
-                handle_bones();
-                break;
-            case 8:
                 handle_invoices();
                 break;
-            case 9:
+            case 7:
                 exit = true;
                 break;
         } (selected_option);
@@ -77,10 +70,12 @@ int main(int argc, char **argv){
     write_sellers_list_in_file("data/sellers.txt", MAIN_SELLERS_LIST);
     write_clients_list_in_file("data/clients.txt", MAIN_CLIENTS_LIST);
     write_articles_list_in_file("data/articles.txt", MAIN_ARTICLE_LIST);
+    write_invoice_list_in_file("data/invoices.txt");
 
     delete_articles_list();
     delete_clients_list();
     delete_sellers_list();
+    delete_invoices_list();
 
     return 0;
 }
